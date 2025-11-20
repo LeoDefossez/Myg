@@ -29,6 +29,11 @@ SGBoard >> buildBoxStrategy: strategy [
 	buildBoxStrategy := strategy
 ]
 
+{ #category : 'testing' }
+SGBoard >> canVisit: aVisitor [
+	^ aVisitor visitBoard: self
+]
+
 { #category : 'accessing' }
 SGBoard >> game [
 	^ game

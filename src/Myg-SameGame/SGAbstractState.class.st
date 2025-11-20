@@ -16,6 +16,14 @@ SGAbstractState class >> uniqueInstance [
 ]
 
 { #category : 'testing' }
+SGAbstractState >> canVisit: aKindVisitor [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"
+
+	^ aKindVisitor visitState: self
+]
+
+{ #category : 'testing' }
 SGAbstractState >> isNull [
 	^ false
 ]

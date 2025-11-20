@@ -66,6 +66,11 @@ SGBox >> backgroundRepresentation [
 	^ self state backgroundRepresentation 
 ]
 
+{ #category : 'testing' }
+SGBox >> canVisit: aVisitor [
+	^ aVisitor visitBox: self
+]
+
 { #category : 'public' }
 SGBox >> click [
 
