@@ -38,23 +38,23 @@ SGGameToStringVisitor >> visitBox: aBox [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"
  |currentLine|
- currentLine := (gameVisualisation splitOn: Character lf) size.
+ currentLine := (gameVisualisation splitOn: Character cr) size.
 
  "add a new line if this is the first box"
  hasConvertOneBoxOrMore ifFalse: [ hasConvertOneBoxOrMore := true. 
-	 gameVisualisation := gameVisualisation , String lf ,'|'.
- 	currentLine := (gameVisualisation splitOn: Character lf) size.
+	 gameVisualisation := gameVisualisation , String cr,'|'.
+ 	currentLine := (gameVisualisation splitOn: Character cr) size.
  	firstBoxRow := currentLine . 
  	].
  
  "add new line if this is a new game row"
- aBox y - 1 ~= (currentLine - firstBoxRow) ifTrue: [gameVisualisation:= gameVisualisation , String lf ,'|'. ].
+ aBox y - 1 ~= (currentLine - firstBoxRow) ifTrue: [gameVisualisation:= gameVisualisation , String cr ,'|'. ].
 
  "add box color" 
+ gameVisualisation:= gameVisualisation , String space.
  aBox state canVisit: self.
- 
  "add a new box separator"	
- gameVisualisation:= String space,gameVisualisation , ' |'
+ gameVisualisation:= gameVisualisation , ' |'
 	
 ]
 
