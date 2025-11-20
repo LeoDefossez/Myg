@@ -46,10 +46,41 @@ SGGameToStringVisitorTest >> testConvertABoardToString [
  at: 5 @ 5 put: SGBox red;
  yourself).
  self assert: (SGGameToStringVisitor new convert: board) equals:
- '
-| R | Y | R | R | R |
+ '| R | Y | R | R | R |
 | B | Y | B | R | R |
 | G | Y | Bo | R | R |
 | B | Y | B | R | R |
 | B | G | Y | B | R |'
+]
+
+{ #category : 'tests' }
+SGGameToStringVisitorTest >> testConvertABoxToString [
+"Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
+ represents this grid:
+ | R | Y | r | r | r |
+ | B | y | b | r | r |
+ | G | y | Bo | r | r |
+ | B | y | b | r | r |
+ | B | g | y | b | r |
+ "
+
+| board|
+ board := SGBoard new.
+ board configureGrid: ((CTNewArray2D width: 1 height: 1)
+ at: 1 @ 1 put: SGBox yellow;
+ yourself).
+ self assert: (SGGameToStringVisitor new convert: (board grid at: 1@1)) equals: ' Y '
+]
+
+{ #category : 'tests' }
+SGGameToStringVisitorTest >> testConvertAStateToString [
+"Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
+ represents this grid:
+ | R | Y | r | r | r |
+ | B | y | b | r | r |
+ | G | y | Bo | r | r |
+ | B | y | b | r | r |
+ | B | g | y | b | r |
+ "
+ self assert: (SGGameToStringVisitor new convert: SGRedState uniqueInstance) equals: 'R'
 ]

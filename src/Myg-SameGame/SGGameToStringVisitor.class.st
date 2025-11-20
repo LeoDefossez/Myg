@@ -30,31 +30,28 @@ SGGameToStringVisitor >> initialize [
 
 { #category : 'visiting' }
 SGGameToStringVisitor >> visitBoard: aBoard [
-	aBoard grid do:[:val| val canVisit: self]
+	|index|
+	index:=0.
+	aBoard grid width.
+
+	aBoard grid do:[:val| 
+		(index ~= 0 and:[index % aBoard grid width = 0]) ifTrue:[
+			gameVisualisation := gameVisualisation , '|' , String cr
+			].
+		gameVisualisation := gameVisualisation ,'|'.
+		val canVisit: self.
+		index:=index+1
+		].
+	gameVisualisation := gameVisualisation ,'|'
 ]
 
 { #category : 'visiting' }
 SGGameToStringVisitor >> visitBox: aBox [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
- |currentLine|
- currentLine := (gameVisualisation splitOn: Character cr) size.
-
- "add a new line if this is the first box"
- hasConvertOneBoxOrMore ifFalse: [ hasConvertOneBoxOrMore := true. 
-	 gameVisualisation := gameVisualisation , String cr,'|'.
- 	currentLine := (gameVisualisation splitOn: Character cr) size.
- 	firstBoxRow := currentLine . 
- 	].
- 
- "add new line if this is a new game row"
- aBox y - 1 ~= (currentLine - firstBoxRow) ifTrue: [gameVisualisation:= gameVisualisation , String cr ,'|'. ].
-
  "add box color" 
  gameVisualisation:= gameVisualisation , String space.
  aBox state canVisit: self.
  "add a new box separator"	
- gameVisualisation:= gameVisualisation , ' |'
+ gameVisualisation:= gameVisualisation , ' '
 	
 ]
 
