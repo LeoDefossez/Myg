@@ -1,13 +1,13 @@
 Class {
-	#name : 'SGGameToStringParser',
-	#superclass : 'SGAbstractParser',
+	#name : 'SGBoardToStringParser',
+	#superclass : 'Object',
 	#category : 'Myg-SameGame-Model',
 	#package : 'Myg-SameGame',
 	#tag : 'Model'
 }
 
 { #category : 'converting' }
-SGGameToStringParser >> parse: anElement [
+SGBoardToStringParser >> parse: anElement [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"
 	^ anElement  parse: self.
@@ -15,7 +15,7 @@ SGGameToStringParser >> parse: anElement [
 ]
 
 { #category : 'visiting' }
-SGGameToStringParser >> parseBoard: aBoard [
+SGBoardToStringParser >> parseBoard: aBoard [
 	|index stringBoard|
 	index:=0.
 	stringBoard :=''.
@@ -33,13 +33,13 @@ SGGameToStringParser >> parseBoard: aBoard [
 ]
 
 { #category : 'visiting' }
-SGGameToStringParser >> parseBox: aBox [
+SGBoardToStringParser >> parseBox: aBox [
  "add box color" 
 ^ String space , (aBox state parse: self), String space.
 	
 ]
 
 { #category : 'visiting' }
-SGGameToStringParser >> parseState: aState [
+SGBoardToStringParser >> parseState: aState [
 	^ aState literal
 ]

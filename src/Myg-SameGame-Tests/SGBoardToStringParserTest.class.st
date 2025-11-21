@@ -1,5 +1,5 @@
 Class {
-	#name : 'SGGameToStringParserTest',
+	#name : 'SGBoardToStringParserTest',
 	#superclass : 'TestCase',
 	#category : 'Myg-SameGame-Tests-Model',
 	#package : 'Myg-SameGame-Tests',
@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : 'tests' }
-SGGameToStringParserTest >> testConvertABoardToString [
+SGBoardToStringParserTest >> testConvertABoardToString [
 "Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
  represents this grid:
  | R | Y | r | r | r |
@@ -45,7 +45,7 @@ SGGameToStringParserTest >> testConvertABoardToString [
  at: 4 @ 5 put: SGBox blue;
  at: 5 @ 5 put: SGBox red;
  yourself).
- self assert: (SGGameToStringParser new parse: board) equals:
+ self assert: (SGBoardToStringParser new parse: board) equals:
  '| R | Y | R | R | R |
 | B | Y | B | R | R |
 | G | Y | Bo | R | R |
@@ -54,7 +54,7 @@ SGGameToStringParserTest >> testConvertABoardToString [
 ]
 
 { #category : 'tests' }
-SGGameToStringParserTest >> testConvertABoxToString [
+SGBoardToStringParserTest >> testConvertABoxToString [
 "Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
  represents this grid:
  | R | Y | r | r | r |
@@ -69,11 +69,11 @@ SGGameToStringParserTest >> testConvertABoxToString [
  board configureGrid: ((CTNewArray2D width: 1 height: 1)
  at: 1 @ 1 put: SGBox yellow;
  yourself).
- self assert: (SGGameToStringParser new parse: (board grid at: 1@1)) equals: ' Y '
+ self assert: (SGBoardToStringParser new parse: (board grid at: 1@1)) equals: ' Y '
 ]
 
 { #category : 'tests' }
-SGGameToStringParserTest >> testConvertAStateToString [
+SGBoardToStringParserTest >> testConvertAStateToString [
 "Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
  represents this grid:
  | R | Y | r | r | r |
@@ -82,5 +82,5 @@ SGGameToStringParserTest >> testConvertAStateToString [
  | B | y | b | r | r |
  | B | g | y | b | r |
  "
- self assert: (SGGameToStringParser new parse: SGRedState uniqueInstance) equals: 'R'
+ self assert: (SGBoardToStringParser new parse: SGRedState uniqueInstance) equals: 'R'
 ]
