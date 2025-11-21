@@ -161,6 +161,11 @@ SGBox >> propagateLineKillerState [
 	self removeBox: (board boxAt: x @ y) ]
 ]
 
+{ #category : 'accessing' }
+SGBox >> propagateMulticolorState [
+	^ self defaultPropagate.
+]
+
 { #category : 'propagating' }
 SGBox >> propagateNormalState [
 	"comment stating purpose of instance-side method"
