@@ -1,6 +1,6 @@
 Class {
-	#name : 'SGGameToStringVisitor',
-	#superclass : 'SGAbstractVisitor',
+	#name : 'SGGameToStringParser',
+	#superclass : 'SGAbstractParser',
 	#instVars : [
 		'hasConvertOneBoxOrMore',
 		'gameVisualisation',
@@ -11,25 +11,25 @@ Class {
 	#tag : 'Model'
 }
 
-{ #category : 'converting' }
-SGGameToStringVisitor >> convert: anElement [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
-
-	gameVisualisation := ''.
-	anElement  canVisit: self.
-	^ gameVisualisation.
-]
-
 { #category : 'initialization' }
-SGGameToStringVisitor >> initialize [ 
+SGGameToStringParser >> initialize [ 
 	gameVisualisation := ''.
 	hasConvertOneBoxOrMore := false.
 	firstBoxRow :=0.
 ]
 
+{ #category : 'converting' }
+SGGameToStringParser >> parse: anElement [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"
+
+	gameVisualisation := ''.
+	anElement  parse: self.
+	^ gameVisualisation.
+]
+
 { #category : 'visiting' }
-SGGameToStringVisitor >> visitBoard: aBoard [
+SGGameToStringParser >> parseBoard: aBoard [
 	|index|
 	index:=0.
 	aBoard grid width.
@@ -39,23 +39,23 @@ SGGameToStringVisitor >> visitBoard: aBoard [
 			gameVisualisation := gameVisualisation , '|' , String cr
 			].
 		gameVisualisation := gameVisualisation ,'|'.
-		val canVisit: self.
+		val parse: self.
 		index:=index+1
 		].
 	gameVisualisation := gameVisualisation ,'|'
 ]
 
 { #category : 'visiting' }
-SGGameToStringVisitor >> visitBox: aBox [
+SGGameToStringParser >> parseBox: aBox [
  "add box color" 
  gameVisualisation:= gameVisualisation , String space.
- aBox state canVisit: self.
+ aBox state parse: self.
  "add a new box separator"	
  gameVisualisation:= gameVisualisation , ' '
 	
 ]
 
 { #category : 'visiting' }
-SGGameToStringVisitor >> visitState: aState [
+SGGameToStringParser >> parseState: aState [
 	gameVisualisation := gameVisualisation , aState literal.
 ]

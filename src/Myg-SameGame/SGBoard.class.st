@@ -29,11 +29,6 @@ SGBoard >> buildBoxStrategy: strategy [
 	buildBoxStrategy := strategy
 ]
 
-{ #category : 'testing' }
-SGBoard >> canVisit: aVisitor [
-	^ aVisitor visitBoard: self
-]
-
 { #category : 'accessing' }
 SGBoard >> game [
 	^ game
@@ -102,6 +97,11 @@ SGBoard >> isColumnEmpty: x [
 	1 to: self grid height do: [ :i |
 	(self boxAt: x @ i) hasNullState ifFalse: [ ^ false ] ].
 	^ true
+]
+
+{ #category : 'testing' }
+SGBoard >> parse: aVisitor [
+	^ aVisitor parseBoard: self
 ]
 
 { #category : 'reorganize' }

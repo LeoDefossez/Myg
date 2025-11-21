@@ -1,5 +1,5 @@
 Class {
-	#name : 'SGGameToStringVisitorTest',
+	#name : 'SGGameToStringParserTest',
 	#superclass : 'TestCase',
 	#category : 'Myg-SameGame-Tests-Model',
 	#package : 'Myg-SameGame-Tests',
@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : 'tests' }
-SGGameToStringVisitorTest >> testConvertABoardToString [
+SGGameToStringParserTest >> testConvertABoardToString [
 "Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
  represents this grid:
  | R | Y | r | r | r |
@@ -16,7 +16,7 @@ SGGameToStringVisitorTest >> testConvertABoardToString [
  | B | y | b | r | r |
  | B | g | y | b | r |
  "
- |board visitor|
+ |board|
  board := SGBoard new.
  board configureGrid: ((CTNewArray2D width: 5 height: 5)
  at: 1 @ 1 put: SGBox red;
@@ -45,7 +45,7 @@ SGGameToStringVisitorTest >> testConvertABoardToString [
  at: 4 @ 5 put: SGBox blue;
  at: 5 @ 5 put: SGBox red;
  yourself).
- self assert: (SGGameToStringVisitor new convert: board) equals:
+ self assert: (SGGameToStringParser new parse: board) equals:
  '| R | Y | R | R | R |
 | B | Y | B | R | R |
 | G | Y | Bo | R | R |
@@ -54,7 +54,7 @@ SGGameToStringVisitorTest >> testConvertABoardToString [
 ]
 
 { #category : 'tests' }
-SGGameToStringVisitorTest >> testConvertABoxToString [
+SGGameToStringParserTest >> testConvertABoxToString [
 "Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
  represents this grid:
  | R | Y | r | r | r |
@@ -69,11 +69,11 @@ SGGameToStringVisitorTest >> testConvertABoxToString [
  board configureGrid: ((CTNewArray2D width: 1 height: 1)
  at: 1 @ 1 put: SGBox yellow;
  yourself).
- self assert: (SGGameToStringVisitor new convert: (board grid at: 1@1)) equals: ' Y '
+ self assert: (SGGameToStringParser new parse: (board grid at: 1@1)) equals: ' Y '
 ]
 
 { #category : 'tests' }
-SGGameToStringVisitorTest >> testConvertAStateToString [
+SGGameToStringParserTest >> testConvertAStateToString [
 "Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
  represents this grid:
  | R | Y | r | r | r |
@@ -82,5 +82,5 @@ SGGameToStringVisitorTest >> testConvertAStateToString [
  | B | y | b | r | r |
  | B | g | y | b | r |
  "
- self assert: (SGGameToStringVisitor new convert: SGRedState uniqueInstance) equals: 'R'
+ self assert: (SGGameToStringParser new parse: SGRedState uniqueInstance) equals: 'R'
 ]

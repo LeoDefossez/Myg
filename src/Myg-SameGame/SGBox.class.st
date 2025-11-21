@@ -66,11 +66,6 @@ SGBox >> backgroundRepresentation [
 	^ self state backgroundRepresentation 
 ]
 
-{ #category : 'testing' }
-SGBox >> canVisit: aVisitor [
-	^ aVisitor visitBox: self
-]
-
 { #category : 'public' }
 SGBox >> click [
 
@@ -118,6 +113,11 @@ SGBox >> hasNullState [
 SGBox >> literal [ 
 
 	^ state literal
+]
+
+{ #category : 'testing' }
+SGBox >> parse: aVisitor [
+	^ aVisitor parseBox: self
 ]
 
 { #category : 'propagating' }

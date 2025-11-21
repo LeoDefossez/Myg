@@ -16,14 +16,6 @@ SGAbstractState class >> uniqueInstance [
 ]
 
 { #category : 'testing' }
-SGAbstractState >> canVisit: aKindVisitor [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
-
-	^ aKindVisitor visitState: self
-]
-
-{ #category : 'testing' }
 SGAbstractState >> isNull [
 	^ false
 ]
@@ -31,6 +23,14 @@ SGAbstractState >> isNull [
 { #category : 'testing' }
 SGAbstractState >> literal [
 	self subclassResponsibility 
+]
+
+{ #category : 'testing' }
+SGAbstractState >> parse: aParser [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"
+
+	^ aParser parseState: self
 ]
 
 { #category : 'as yet unclassified' }

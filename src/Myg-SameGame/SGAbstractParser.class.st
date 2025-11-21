@@ -1,5 +1,5 @@
 Class {
-	#name : 'SGAbstractVisitor',
+	#name : 'SGAbstractParser',
 	#superclass : 'Object',
 	#category : 'Myg-SameGame-Objects',
 	#package : 'Myg-SameGame',
@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : 'visiting' }
-SGAbstractVisitor >> visitBlock:aBlock [
+SGAbstractParser >> parseBlock:aBlock [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"
 
@@ -15,7 +15,7 @@ SGAbstractVisitor >> visitBlock:aBlock [
 ]
 
 { #category : 'visiting' }
-SGAbstractVisitor >> visitBoard:aBoard [
+SGAbstractParser >> parseBoard:aBoard [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"
 
@@ -23,7 +23,7 @@ SGAbstractVisitor >> visitBoard:aBoard [
 ]
 
 { #category : 'visiting' }
-SGAbstractVisitor >> visitGame: aGame [
+SGAbstractParser >> parseGame: aGame [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"
 
@@ -31,7 +31,7 @@ SGAbstractVisitor >> visitGame: aGame [
 ]
 
 { #category : 'visiting' }
-SGAbstractVisitor >> visitState:aState [
+SGAbstractParser >> parseState:aState [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"
 
