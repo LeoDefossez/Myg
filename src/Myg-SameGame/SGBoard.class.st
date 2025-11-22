@@ -100,8 +100,8 @@ SGBoard >> isColumnEmpty: x [
 ]
 
 { #category : 'testing' }
-SGBoard >> parse: aVisitor [
-	^ aVisitor parseBoard: self
+SGBoard >> parse: aParser [
+	^ aParser parseBoard: self
 ]
 
 { #category : 'reorganize' }
