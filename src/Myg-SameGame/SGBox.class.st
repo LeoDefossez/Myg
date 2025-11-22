@@ -24,6 +24,14 @@ SGBox class >> bomb [
 	^ self withState: SGBombState uniqueInstance
 ]
 
+{ #category : 'as yet unclassified' }
+SGBox class >> columnKiller [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"
+
+	^ self withState: SGColumnKiller uniqueInstance
+]
+
 { #category : 'constants' }
 SGBox class >> green [
 
@@ -143,6 +151,22 @@ SGBox >> propagateBombState [
 { #category : 'propagating' }
 SGBox >> propagateClick [
 	self state propagateFromABox: self.
+]
+
+{ #category : 'as yet unclassified' }
+SGBox >> propagateColumnKillerState [
+	"comment stating purpose of instance-side method"
+
+	"scope: class-variables  &  instance-variables"
+
+	| x yMaxBoard yMinBoard |
+	x := self x.
+	yMaxBoard := board grid height.
+	yMinBoard := 1.
+	(self board hitList includes: self) ifTrue: [ ^ self ].
+	self board hitList add: self.
+	yMinBoard to: yMaxBoard do: [ :y |
+	self removeBox: (board boxAt: x @ y) ]
 ]
 
 { #category : 'as yet unclassified' }
