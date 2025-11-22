@@ -43,7 +43,7 @@ SGBox class >> lineKiller [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGLineKillerState uniqueInstance
+	^ self withState: SGRowKillerState uniqueInstance
 ]
 
 { #category : 'factory' }
@@ -126,6 +126,14 @@ SGBox >> hasNullState [
 ]
 
 { #category : 'accessing' }
+SGBox >> killAllInside: aLine [
+
+	(self board hitList includes: self) ifTrue: [ ^ self ].
+	self board hitList add: self.
+	aLine eachPointDo: [ :aPoint | self removeBox: (board boxAt: aPoint) ]
+]
+
+{ #category : 'accessing' }
 SGBox >> literal [ 
 
 	^ state literal
@@ -155,9 +163,6 @@ SGBox >> propagateClick [
 
 { #category : 'as yet unclassified' }
 SGBox >> propagateColumnKillerState [
-	"comment stating purpose of instance-side method"
-
-	"scope: class-variables  &  instance-variables"
 
 	| x yMaxBoard yMinBoard |
 	x := self x.
@@ -166,22 +171,6 @@ SGBox >> propagateColumnKillerState [
 	(self board hitList includes: self) ifTrue: [ ^ self ].
 	self board hitList add: self.
 	yMinBoard to: yMaxBoard do: [ :y |
-	self removeBox: (board boxAt: x @ y) ]
-]
-
-{ #category : 'as yet unclassified' }
-SGBox >> propagateLineKillerState [
-	"comment stating purpose of instance-side method"
-
-	"scope: class-variables  &  instance-variables"
-
-	| y xMaxBoard xMinBoard |
-	y := self y.
-	xMaxBoard := board grid width.
-	xMinBoard := 1.
-	(self board hitList includes: self) ifTrue: [ ^ self ].
-	self board hitList add: self.
-	xMinBoard to: xMaxBoard do: [ :x |
 	self removeBox: (board boxAt: x @ y) ]
 ]
 
@@ -197,6 +186,12 @@ SGBox >> propagateNormalState [
 SGBox >> propagateNullState [
 
 	^ self
+]
+
+{ #category : 'as yet unclassified' }
+SGBox >> propagateRowKillerState [
+
+	self killAllInside: (LineHorizontal xmin: 1 xmax: board grid width y: self y)
 ]
 
 { #category : 'removing' }

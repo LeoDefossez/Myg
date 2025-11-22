@@ -1,5 +1,5 @@
 Class {
-	#name : 'SGLineKillerState',
+	#name : 'SGRowKillerState',
 	#superclass : 'SGSpecialState',
 	#category : 'Myg-SameGame-Model',
 	#package : 'Myg-SameGame',
@@ -7,19 +7,19 @@ Class {
 }
 
 { #category : 'accessing' }
-SGLineKillerState >> backgroundRepresentation [
+SGRowKillerState >> backgroundRepresentation [
 
 	^ Color purple
 ]
 
 { #category : 'testing' }
-SGLineKillerState >> literal [
+SGRowKillerState >> literal [
 
 	^ 'Lk'
 ]
 
 { #category : 'as yet unclassified' }
-SGLineKillerState >> propagateFromABox: aSGBox [
+SGRowKillerState >> propagateFromABox: aSGBox [
 
-	^ aSGBox propagateLineKillerState
+	^ aSGBox propagateRowKillerState
 ]
