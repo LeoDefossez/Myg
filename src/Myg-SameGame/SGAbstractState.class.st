@@ -31,6 +31,14 @@ SGAbstractState >> literal [
 	self subclassResponsibility 
 ]
 
+{ #category : 'testing' }
+SGAbstractState >> parse: aParser [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"
+
+	^ aParser parseState: self
+]
+
 { #category : 'as yet unclassified' }
 SGAbstractState >> propagateFromABox: aSquare [
 

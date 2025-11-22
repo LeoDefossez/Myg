@@ -99,6 +99,11 @@ SGBoard >> isColumnEmpty: x [
 	^ true
 ]
 
+{ #category : 'testing' }
+SGBoard >> parse: aParser [
+	^ aParser parseBoard: self
+]
+
 { #category : 'reorganize' }
 SGBoard >> reorganizeColumn: x [
 

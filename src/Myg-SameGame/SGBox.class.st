@@ -123,6 +123,11 @@ SGBox >> literal [
 	^ state literal
 ]
 
+{ #category : 'testing' }
+SGBox >> parse: aVisitor [
+	^ aVisitor parseBox: self
+]
+
 { #category : 'propagating' }
 SGBox >> propagateBombState [
 	"comment stating purpose of instance-side method"
