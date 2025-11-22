@@ -34,6 +34,11 @@ SGMulticolorState >> compatibleWithMulticolor: aSGMulticolorState [
 	^ true
 ]
 
+{ #category : 'testing' }
+SGMulticolorState >> literal [
+	^ 'Mu'
+]
+
 { #category : 'accessing' }
 SGMulticolorState >> propagateFromABox: aSGBox [
 

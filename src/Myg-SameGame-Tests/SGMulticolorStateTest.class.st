@@ -145,6 +145,29 @@ SGMulticolorStateTest >> testEveryBasicStateIsCompatible [
 ]
 
 { #category : 'tests' }
+SGMulticolorStateTest >> testHitOnOnlyMulticolor [
+	"Mu: Multicolor
+	represents this grid:
+	| Mu |
+	"
+
+	| board |
+	board := SGBoard new.
+	SGGame new board: board.
+
+	board configureGrid: ((CTNewArray2D width: 1 height: 1)
+			 at: 1 @ 1 put: SGBox multicolor;
+			 yourself).
+
+	board hitBoxOnx: 1 y: 1.
+	"expect:
+	 | Mu | 
+	"
+
+	self assert: (board boxAt: 1 @ 1) state class equals: SGMulticolorState
+]
+
+{ #category : 'tests' }
 SGMulticolorStateTest >> testIsCompatibleWithEveryBasicState [
 
 	SGBasicState subclasses do:[:each | self assert: (muState compatibleWith: each uniqueInstance)  ]
