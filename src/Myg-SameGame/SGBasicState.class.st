@@ -6,6 +6,22 @@ Class {
 	#tag : 'Model'
 }
 
+{ #category : 'accessing' }
+SGBasicState >> compatibleWith: aSGState [
+	^ aSGState compatibleWithBasicState: self
+]
+
+{ #category : 'accessing' }
+SGBasicState >> compatibleWithBasicState: aSGBasicState [ 
+	^ self class = aSGBasicState class
+]
+
+{ #category : 'accessing' }
+SGBasicState >> compatibleWithMulticolor: aSGMulticolorState [ 
+	
+	^ true
+]
+
 { #category : 'as yet unclassified' }
 SGBasicState >> propagateFromABox: aSquare [
 	"comment stating purpose of instance-side method"

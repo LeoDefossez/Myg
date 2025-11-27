@@ -93,7 +93,7 @@ SGBox >> defaultCheckAndPropagateOnX: x y: y [
 
 	| case |
 	case := self board boxAt: x @ y.
-	case state = self state ifTrue: [ case propagateClick ]
+	(case state compatibleWith: self state) ifTrue: [ case propagateClick ]
 ]
 
 { #category : 'propagating' }
@@ -183,6 +183,11 @@ SGBox >> propagateLineKillerState [
 	self board hitList add: self.
 	xMinBoard to: xMaxBoard do: [ :x |
 	self removeBox: (board boxAt: x @ y) ]
+]
+
+{ #category : 'accessing' }
+SGBox >> propagateMulticolorState [
+	^ self defaultPropagate.
 ]
 
 { #category : 'propagating' }
