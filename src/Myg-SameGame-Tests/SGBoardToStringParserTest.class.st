@@ -45,12 +45,12 @@ SGBoardToStringParserTest >> testConvertABoardToString [
  at: 4 @ 5 put: SGBox blue;
  at: 5 @ 5 put: SGBox red;
  yourself).
- self assert: (SGBoardToStringParser new parse: board) equals:
+ self assert: (SGBoardToStringParser new parse: board) equals:(
  '| R | Y | R | R | R |
 | B | Y | B | R | R |
 | G | Y | Bo | R | R |
 | B | Y | B | R | R |
-| B | G | Y | B | R |'
+| B | G | Y | B | R |' reject:[:each|each=Character space])
 ]
 
 { #category : 'tests' }
@@ -93,11 +93,11 @@ SGBoardToStringParserTest >> testConvertABoardToStringWithNullState [
  at: 5 @ 5 put: SGBox null;
  yourself).
  self assert: (SGBoardToStringParser new parse: board) equals:
- '| R | Y | R | R | R |
+ ('| R | Y | R | R | R |
 | B | Y | N | R | R |
 | N | Y | Bo | R | R |
 | B | Y | B | R | R |
-| B | G | Y | B | N |'
+| B | G | Y | B | N |' reject: [:each| each=Character space])
 ]
 
 { #category : 'tests' }
@@ -107,10 +107,5 @@ SGBoardToStringParserTest >> testConvertABoxToString [
  board configureGrid: ((CTNewArray2D width: 1 height: 1)
  at: 1 @ 1 put: SGBox yellow;
  yourself).
- self assert: (SGBoardToStringParser new parse: (board grid at: 1@1)) equals: ' Y '
-]
-
-{ #category : 'tests' }
-SGBoardToStringParserTest >> testConvertAStateToString [
- self assert: (SGBoardToStringParser new parse: SGRedState uniqueInstance) equals: 'R'
+ self assert: (SGBoardToStringParser new parse: (board grid at: 1@1)) equals: 'Y'
 ]

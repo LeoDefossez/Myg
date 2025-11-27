@@ -12,6 +12,11 @@ Class {
 }
 
 { #category : 'initialization' }
+SGStateRegistry >> all [
+	^ specials , basics , { null }
+]
+
+{ #category : 'initialization' }
 SGStateRegistry >> basics [
 	^ basics
 ]

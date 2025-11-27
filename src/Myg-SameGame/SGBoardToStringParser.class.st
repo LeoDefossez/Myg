@@ -16,30 +16,20 @@ SGBoardToStringParser >> parse: anElement [
 
 { #category : 'visiting' }
 SGBoardToStringParser >> parseBoard: aBoard [
-	|index stringBoard|
-	index:=0.
-	stringBoard :=''.
-	aBoard grid width.
-	
-	aBoard grid do:[:val| 
-		(index ~= 0 and:[index % aBoard grid width = 0]) ifTrue:[
-			stringBoard := stringBoard , '|' , String cr
-			].
-		stringBoard := stringBoard ,'|',(val parse: self).
-		index:=index+1
-		].
-	^stringBoard ,'|'
 
+	| stringBoard |
+	stringBoard := ''.
+	aBoard grid rowsDo: [ :row |
+			stringBoard := stringBoard , '|'.
+			row do: [ :col |
+				stringBoard := stringBoard , (col parse: self) , '|' ].
+			stringBoard := stringBoard , String cr ].
+	^ stringBoard withoutSuffix: String cr
 ]
 
 { #category : 'visiting' }
 SGBoardToStringParser >> parseBox: aBox [
  "add box color" 
-^ String space , (aBox state parse: self), String space.
+^ aBox state literal
 	
-]
-
-{ #category : 'visiting' }
-SGBoardToStringParser >> parseState: aState [
-	^ aState literal
 ]
