@@ -14,8 +14,8 @@ SGStringToGridParser >> parse: aString [
 	lines size < 1 ifTrue: [ ^ self error: 'Error lines is empty.' ].
 	rows := OrderedCollection new.
 
-	lines withIndexDo: [ :line :i |
-		rows add: (self parseLine: line position: i) ].
+	lines do: [ :line  |
+		rows add: (self parseLine: line) ].
 
 	lineSize := rows first size.
 	rows allButFirst do: [ :row |
@@ -26,7 +26,7 @@ SGStringToGridParser >> parse: aString [
 ]
 
 { #category : 'visiting' }
-SGStringToGridParser >> parseBox: aString atLine: y atColumn: x [
+SGStringToGridParser >> parseBox: aString [
 
 	| registry possibilityList |
 	registry := SGStateRegistry new.
@@ -39,15 +39,13 @@ SGStringToGridParser >> parseBox: aString atLine: y atColumn: x [
 			  'error: The value ' , aString , 'don"t match with box.' ].
 	^ SGBox new
 		  state: possibilityList first;
-		  position: x @ y;
 		  yourself
 ]
 
 { #category : 'visiting' }
-SGStringToGridParser >> parseLine: aString position: anInteger [
+SGStringToGridParser >> parseLine: aString [ 
 
 	^ (((aString reject: [ :each | each = Character space ]) splitOn: '|')
-		   reject: #isEmpty)
-		  withIndexCollect: [ :val :i |
-		  self parseBox: val atLine: anInteger atColumn: i ]
+		   reject: #isEmpty) collect: [ :val|
+		  self parseBox: val]
 ]

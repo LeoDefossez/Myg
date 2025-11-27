@@ -70,8 +70,9 @@ SGStringToGridParserTest >> testConvertAStringToABoardAllBoxHasGoodPosition [
  | B | bo | g |
  "
  |grid iRow iCol|
- grid:=SGStringToGridParser new parse: '| R | Y | R |
- | B | Bo | G |'.
+ 
+ grid:=(SGBoard new configureGrid:( SGStringToGridParser new parse: '| R | Y | R |
+ | B | Bo | G |') )grid.
  iRow := 0.
  2 timesRepeat: [iCol := 0.
 	iRow:=iRow +1.

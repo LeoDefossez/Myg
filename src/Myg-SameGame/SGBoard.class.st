@@ -11,6 +11,11 @@ Class {
 	#tag : 'Model'
 }
 
+{ #category : 'instance creation' }
+SGBoard class >> fromString: aString [
+	^self new configureGrid: (	SGStringToGridParser new parse: aString) yourself .
+]
+
 { #category : 'compute' }
 SGBoard >> boxAt: aPoint [
 

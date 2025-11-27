@@ -33,6 +33,21 @@ SGBoardTest >> testAddingBoardToGameKnowingAnotherBoardDontWork [
 ]
 
 { #category : 'tests' }
+SGBoardTest >> testCreateBoardFromAStringReturnABoardWithEveryBoxContainingTheBoard [
+
+	| board |
+	board := SGBoard fromString: '| R|| | Y | R |
+ | B | Bo||||| | G |'.
+
+	self assert: (board boxAt: 1 @ 1) board equals: board.
+	self assert: (board boxAt: 2 @ 1) board equals: board.
+	self assert: (board boxAt: 3 @ 1) board equals: board.
+	self assert: (board boxAt: 1 @ 2) board equals: board.
+	self assert: (board boxAt: 2 @ 2) board equals: board.
+	self assert: (board boxAt: 3 @ 2) board equals: board
+]
+
+{ #category : 'tests' }
 SGBoardTest >> testSetGameWithGameKnowingTheBoard [
 
 	| board game |
