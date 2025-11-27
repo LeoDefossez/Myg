@@ -46,6 +46,14 @@ SGBox class >> lineKiller [
 	^ self withState: SGLineKillerState uniqueInstance
 ]
 
+{ #category : 'as yet unclassified' }
+SGBox class >> multicolor [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"
+
+	^ self withState: SGMulticolorState uniqueInstance
+]
+
 { #category : 'factory' }
 SGBox class >> null [
 
