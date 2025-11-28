@@ -11,6 +11,12 @@ Class {
 	#tag : 'Model'
 }
 
+{ #category : 'instance creation' }
+SGBoard class >> fromString: aString [
+
+	^ self new fromString: aString 
+]
+
 { #category : 'compute' }
 SGBoard >> boxAt: aPoint [
 
@@ -29,6 +35,12 @@ SGBoard >> buildBoxStrategy: strategy [
 	buildBoxStrategy := strategy
 ]
 
+{ #category : 'public api - configure' }
+SGBoard >> fromString: aString [
+
+	self configureGrid: (SGStringToGridParser new parse: aString) yourself
+]
+
 { #category : 'accessing' }
 SGBoard >> game [
 	^ game
@@ -38,7 +50,9 @@ SGBoard >> game [
 SGBoard >> game: aSGGame [
 
 	game := aSGGame.
-	game board = self ifFalse: [ self error: 'Consistency error: the game must be know the board before the board can reference it.' ]
+	game board = self ifFalse: [
+		self error:
+			'Consistency error: the game must be know the board before the board can reference it.' ]
 ]
 
 { #category : 'reorganize' }
@@ -87,15 +101,12 @@ SGBoard >> initialize [
 	super initialize.
 	hitList := OrderedCollection new.
 	buildBoxStrategy := SGBuildRandomAll new
-	"stackHit := Stack new -> has no reference"
-	"stock les cases touchées"
 ]
 
 { #category : 'accessing' }
 SGBoard >> isColumnEmpty: x [
 
-	1 to: self grid height do: [ :i |
-	(self boxAt: x @ i) hasNullState ifFalse: [ ^ false ] ].
+	1 to: self grid height do: [ :i | (self boxAt: x @ i) hasNullState ifFalse: [ ^ false ] ].
 	^ true
 ]
 
@@ -140,4 +151,10 @@ SGBoard >> switchColumn: firstColumn withColumn: secondColumn [
 
 	1 to: self grid height do: [ :i |
 	self switchBox: firstColumn @ i with: secondColumn @ i ]
+]
+
+{ #category : 'accessing' }
+SGBoard >> toString [
+
+	^ SGBoardToStringParser new parse: self
 ]
