@@ -15,6 +15,18 @@ SGAbstractState class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
+{ #category : 'accessing' }
+SGAbstractState >> backgroundRepresentation [
+
+	^ self subclassResponsibility
+]
+
+{ #category : 'as yet unclassified' }
+SGAbstractState >> compatibleWith: aSGState [
+	"Help understand how the propagating works (Usefull for compatibilty between some special and basic states)"
+	self subclassResponsibility 
+]
+
 { #category : 'testing' }
 SGAbstractState >> isNull [
 	^ false
@@ -26,7 +38,7 @@ SGAbstractState >> literal [
 ]
 
 { #category : 'as yet unclassified' }
-SGAbstractState >> propagateFromASquare: aSquare [
+SGAbstractState >> propagateFromABox: aSGbox [
 
 	self subclassResponsibility
 ]

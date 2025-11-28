@@ -24,10 +24,34 @@ SGBox class >> bomb [
 	^ self withState: SGBombState uniqueInstance
 ]
 
+{ #category : 'as yet unclassified' }
+SGBox class >> columnKiller [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"
+
+	^ self withState: SGColumnKiller uniqueInstance
+]
+
 { #category : 'constants' }
 SGBox class >> green [
 
 	^ self withState: SGGreenState uniqueInstance
+]
+
+{ #category : 'as yet unclassified' }
+SGBox class >> lineKiller [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"
+
+	^ self withState: SGRowKillerState uniqueInstance
+]
+
+{ #category : 'as yet unclassified' }
+SGBox class >> multicolor [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"
+
+	^ self withState: SGMulticolorState uniqueInstance
 ]
 
 { #category : 'factory' }
@@ -77,7 +101,7 @@ SGBox >> defaultCheckAndPropagateOnX: x y: y [
 
 	| case |
 	case := self board boxAt: x @ y.
-	case state = self state ifTrue: [ case propagateClick ]
+	(case state compatibleWith: self state) ifTrue: [ case propagateClick ]
 ]
 
 { #category : 'propagating' }
@@ -109,6 +133,25 @@ SGBox >> hasNullState [
 	^ self state isNull
 ]
 
+{ #category : 'propagating' }
+SGBox >> killAllInRectangle: aRectangle [
+
+	| boardRectangle targetIntersection |
+	boardRectangle := Rectangle
+		                  origin: 1 @ 1
+		                  corner: board grid width @ board grid height.
+
+	targetIntersection := boardRectangle intersect: aRectangle.
+
+	(self board hitList includes: self) ifTrue: [ ^ self ].
+	self board hitList add: self.
+
+	targetIntersection origin x to: targetIntersection extent x + 1 do: [
+			:x |
+			targetIntersection origin y to: targetIntersection extent y +1 do: [
+			:y | self removeBox: (board boxAt: x @ y) ] ]
+]
+
 { #category : 'accessing' }
 SGBox >> literal [ 
 
@@ -117,30 +160,40 @@ SGBox >> literal [
 
 { #category : 'propagating' }
 SGBox >> propagateBombState [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
-	| x y |
-	x := self x.
-	y := self y.
-	(self board hitList includes: self) ifTrue: [ ^ self ].
-	self board hitList add: self.
-	((x@y) eightNeighbors select: [:aPoint| aPoint isInsideRectangle: 
-		(Rectangle  point: 1@1 point:  (board grid width + 1 )@(board grid height +1 ))]	)
-	 do:[ :aPoint| 
-		self removeBox:( board boxAt:aPoint ) 
-		].
-	
+
+	| targetRectangle |
+	targetRectangle := Rectangle
+		                   origin: self x - 1 @ self y - 1
+		                   extent: self x + 1 @ self y + 1.
+	self killAllInRectangle: targetRectangle
 ]
 
 { #category : 'propagating' }
 SGBox >> propagateClick [
-	self state propagateFromASquare: self.
+	self state propagateFromABox: self.
+]
+
+{ #category : 'as yet unclassified' }
+SGBox >> propagateColumnKillerState [
+	| targetRectangle|
+	targetRectangle := Rectangle origin: self x@ 1 extent: self x@ board grid height. 
+	self killAllInRectangle: targetRectangle.
+]
+
+{ #category : 'as yet unclassified' }
+SGBox >> propagateLineKillerState [
+	| targetRectangle|
+	targetRectangle := Rectangle origin: 1@self y extent: board grid width @ self y. 
+	self killAllInRectangle: targetRectangle.
+]
+
+{ #category : 'accessing' }
+SGBox >> propagateMulticolorState [
+	^ self defaultPropagate.
 ]
 
 { #category : 'propagating' }
 SGBox >> propagateNormalState [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
 	^ self defaultPropagate.
 	
 ]
@@ -149,6 +202,22 @@ SGBox >> propagateNormalState [
 SGBox >> propagateNullState [
 
 	^ self
+]
+
+{ #category : 'as yet unclassified' }
+SGBox >> propagateRowKillerState [
+	"comment stating purpose of instance-side method"
+
+	"scope: class-variables  &  instance-variables"
+
+	| y xMaxBoard xMinBoard |
+	y := self y.
+	xMaxBoard := board grid width.
+	xMinBoard := 1.
+	(self board hitList includes: self) ifTrue: [ ^ self ].
+	self board hitList add: self.
+	xMinBoard to: xMaxBoard do: [ :x |
+	self removeBox: (board boxAt: x @ y) ]
 ]
 
 { #category : 'removing' }

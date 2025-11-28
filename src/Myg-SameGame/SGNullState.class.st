@@ -20,6 +20,12 @@ SGNullState >> backgroundRepresentation [
 ]
 
 { #category : 'accessing' }
+SGNullState >> compatibleWith: aSGState [ 
+	"compatibility is usefull for propagating, does not concern the null state"
+	^ false
+]
+
+{ #category : 'accessing' }
 SGNullState >> isNull [
 
 	^ true
@@ -32,7 +38,7 @@ SGNullState >> literal [
 ]
 
 { #category : 'accessing' }
-SGNullState >> propagateFromASquare: aSGBox [ 
+SGNullState >> propagateFromABox: aSGBox [ 
 	
 	^ aSGBox propagateNullState
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : 'SGBombState',
+	#name : 'SGRowKillerState',
 	#superclass : 'SGSpecialState',
 	#category : 'Myg-SameGame-Model',
 	#package : 'Myg-SameGame',
@@ -7,18 +7,19 @@ Class {
 }
 
 { #category : 'accessing' }
-SGBombState >> backgroundRepresentation [
+SGRowKillerState >> backgroundRepresentation [
 
-	^ Color black 
+	^ Color purple
 ]
 
 { #category : 'testing' }
-SGBombState >> literal [
-	^ 'Bo'
+SGRowKillerState >> literal [
+
+	^ 'Lk'
 ]
 
 { #category : 'as yet unclassified' }
-SGBombState >> propagateFromABox: aSGBox [
+SGRowKillerState >> propagateFromABox: aSGBox [
 
-	^ aSGBox propagateBombState
+	^ aSGBox propagateRowKillerState
 ]
