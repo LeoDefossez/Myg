@@ -43,7 +43,7 @@ SGBox class >> lineKiller [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGLineKillerState uniqueInstance
+	^ self withState: SGRowKillerState uniqueInstance
 ]
 
 { #category : 'as yet unclassified' }
@@ -202,6 +202,22 @@ SGBox >> propagateNormalState [
 SGBox >> propagateNullState [
 
 	^ self
+]
+
+{ #category : 'as yet unclassified' }
+SGBox >> propagateRowKillerState [
+	"comment stating purpose of instance-side method"
+
+	"scope: class-variables  &  instance-variables"
+
+	| y xMaxBoard xMinBoard |
+	y := self y.
+	xMaxBoard := board grid width.
+	xMinBoard := 1.
+	(self board hitList includes: self) ifTrue: [ ^ self ].
+	self board hitList add: self.
+	xMinBoard to: xMaxBoard do: [ :x |
+	self removeBox: (board boxAt: x @ y) ]
 ]
 
 { #category : 'removing' }
