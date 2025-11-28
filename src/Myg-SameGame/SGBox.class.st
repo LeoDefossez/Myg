@@ -133,6 +133,25 @@ SGBox >> hasNullState [
 	^ self state isNull
 ]
 
+{ #category : 'propagating' }
+SGBox >> killAllInRectangle: aRectangle [
+
+	| boardRectangle targetIntersection |
+	boardRectangle := Rectangle
+		                  origin: 1 @ 1
+		                  corner: board grid width @ board grid height.
+
+	targetIntersection := boardRectangle intersect: aRectangle.
+
+	(self board hitList includes: self) ifTrue: [ ^ self ].
+	self board hitList add: self.
+
+	targetIntersection origin x to: targetIntersection extent x + 1 do: [
+			:x |
+			targetIntersection origin y to: targetIntersection extent y +1 do: [
+			:y | self removeBox: (board boxAt: x @ y) ] ]
+]
+
 { #category : 'accessing' }
 SGBox >> literal [ 
 
@@ -141,19 +160,12 @@ SGBox >> literal [
 
 { #category : 'propagating' }
 SGBox >> propagateBombState [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
-	| x y |
-	x := self x.
-	y := self y.
-	(self board hitList includes: self) ifTrue: [ ^ self ].
-	self board hitList add: self.
-	((x@y) eightNeighbors select: [:aPoint| aPoint isInsideRectangle: 
-		(Rectangle  point: 1@1 point:  (board grid width + 1 )@(board grid height +1 ))]	)
-	 do:[ :aPoint| 
-		self removeBox:( board boxAt:aPoint ) 
-		]. 
-	
+
+	| targetRectangle |
+	targetRectangle := Rectangle
+		                   origin: self x - 1 @ self y - 1
+		                   extent: self x + 1 @ self y + 1.
+	self killAllInRectangle: targetRectangle
 ]
 
 { #category : 'propagating' }
@@ -163,18 +175,16 @@ SGBox >> propagateClick [
 
 { #category : 'as yet unclassified' }
 SGBox >> propagateColumnKillerState [
-	"comment stating purpose of instance-side method"
+	| targetRectangle|
+	targetRectangle := Rectangle origin: self x@ 1 extent: self x@ board grid height. 
+	self killAllInRectangle: targetRectangle.
+]
 
-	"scope: class-variables  &  instance-variables"
-
-	| x yMaxBoard yMinBoard |
-	x := self x.
-	yMaxBoard := board grid height.
-	yMinBoard := 1.
-	(self board hitList includes: self) ifTrue: [ ^ self ].
-	self board hitList add: self.
-	yMinBoard to: yMaxBoard do: [ :y |
-	self removeBox: (board boxAt: x @ y) ]
+{ #category : 'as yet unclassified' }
+SGBox >> propagateLineKillerState [
+	| targetRectangle|
+	targetRectangle := Rectangle origin: 1@self y extent: board grid width @ self y. 
+	self killAllInRectangle: targetRectangle.
 ]
 
 { #category : 'accessing' }
@@ -184,8 +194,6 @@ SGBox >> propagateMulticolorState [
 
 { #category : 'propagating' }
 SGBox >> propagateNormalState [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
 	^ self defaultPropagate.
 	
 ]
