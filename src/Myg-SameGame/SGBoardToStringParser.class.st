@@ -7,29 +7,23 @@ Class {
 }
 
 { #category : 'converting' }
-SGBoardToStringParser >> parse: anElement [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"
-	^ anElement  parse: self.
+SGBoardToStringParser >> parse: aBoard [
 
-]
-
-{ #category : 'visiting' }
-SGBoardToStringParser >> parseBoard: aBoard [
-
-	| stringBoard |
-	stringBoard := ''.
-	aBoard grid rowsDo: [ :row |
-			stringBoard := stringBoard , '|'.
-			row do: [ :col |
-				stringBoard := stringBoard , (col parse: self) , '|' ].
-			stringBoard := stringBoard , String cr ].
-	^ stringBoard withoutSuffix: String cr
+	| stream |
+	stream := WriteStream on: ''.
+	aBoard grid rows
+		do: [ :row |
+				stream nextPutAll: '|'.
+				row do: [ :box |
+						stream
+							nextPutAll: (self parseBox: box);
+							nextPutAll: '|' ] ]
+		separatedBy: [ stream cr ].
+	^ stream contents
 ]
 
 { #category : 'visiting' }
 SGBoardToStringParser >> parseBox: aBox [
- "add box color" 
-^ aBox state literal
-	
+
+	^ aBox state literal
 ]
