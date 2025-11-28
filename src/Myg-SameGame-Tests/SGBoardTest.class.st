@@ -103,6 +103,9 @@ SGBoardTest >> testCreateBoardFromAStringReturnABoardWithEveryBoxContainingTheBo
 	self assert: (board boxAt: 1 @ 2) board equals: board.
 	self assert: (board boxAt: 2 @ 2) board equals: board.
 	self assert: (board boxAt: 3 @ 2) board equals: board
+] 
+
+{ #category : 'tests' }
 SGBoardTest >> testClickAndCaseNothingAppend [
 
 	"Y: Yellow , B: Blue , G: Green , R: Red
