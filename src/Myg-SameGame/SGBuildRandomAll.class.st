@@ -8,7 +8,7 @@ Class {
 
 { #category : 'as yet unclassified' }
 SGBuildRandomAll >> basicsWeight [
-	^ 5
+	^ 10
 ]
 
 { #category : 'as yet unclassified' }
