@@ -13,7 +13,7 @@ Class {
 SGAbstractStateTest >> testAllStateLiteralAreUnique [
 
 	| states literals |
-	states := SGBasicState subclasses , SGSpecialState subclasses , { SGNullState } collect: #uniqueInstance.
+	states := SGBasicState subclasses , SGSpecialState subclasses , { SGNullState } collect: #new.
 	literals := (states collect: #literal) asSet .
 	
 	self assert: literals size equals: states size

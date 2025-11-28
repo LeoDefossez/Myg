@@ -13,7 +13,7 @@ Class {
 { #category : 'as yet unclassified' }
 SGBuildBoxStrategy >> buildBox [
 	
-	^ SGBox withState: distribution atRandom uniqueInstance 
+	^ SGBox withState: distribution atRandom new 
 	
 	
 ]

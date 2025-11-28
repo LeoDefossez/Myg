@@ -13,7 +13,7 @@ Class {
 { #category : 'constants' }
 SGBox class >> blue [ 
 
-	^ self withState: SGBlueState uniqueInstance 
+	^ self withState: SGBlueState new 
 ]
 
 { #category : 'as yet unclassified' }
@@ -21,7 +21,7 @@ SGBox class >> bomb [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGBombState uniqueInstance
+	^ self withState: SGBombState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -29,13 +29,13 @@ SGBox class >> columnKiller [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGColumnKiller uniqueInstance
+	^ self withState: SGColumnKiller new
 ]
 
 { #category : 'constants' }
 SGBox class >> green [
 
-	^ self withState: SGGreenState uniqueInstance
+	^ self withState: SGGreenState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -43,7 +43,7 @@ SGBox class >> lineKiller [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGRowKillerState uniqueInstance
+	^ self withState: SGRowKillerState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -51,19 +51,19 @@ SGBox class >> multicolor [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGMulticolorState uniqueInstance
+	^ self withState: SGMulticolorState new
 ]
 
 { #category : 'factory' }
 SGBox class >> null [
 
-	^ self withState: SGNullState uniqueInstance 
+	^ self withState: SGNullState new 
 ]
 
 { #category : 'constants' }
 SGBox class >> red [
 
-	^ self withState: SGRedState uniqueInstance
+	^ self withState: SGRedState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -75,7 +75,7 @@ SGBox class >> withState: aState [
 { #category : 'constants' }
 SGBox class >> yellow [
 
-	^ self withState: SGYellowState uniqueInstance
+	^ self withState: SGYellowState new
 ]
 
 { #category : 'accessing' }

@@ -28,7 +28,7 @@ SGStringToGridParser >> parseBox: aString [
 	registry := SGStateRegistry new.
 
 	possibilityList := registry all
-		                   collect: [ :class | class uniqueInstance ]
+		                   collect: [ :class | class new  ]
 		                   thenSelect: [ :state | state literal = aString ].
 	possibilityList size < 1 ifTrue: [
 		^ self error: 'error: The value ' , aString , 'don"t match with box.' ].

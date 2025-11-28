@@ -10,12 +10,6 @@ Class {
 }
 
 { #category : 'accessing' }
-SGAbstractState class >> uniqueInstance [
-
-	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
-]
-
-{ #category : 'accessing' }
 SGAbstractState >> backgroundRepresentation [
 
 	^ self subclassResponsibility

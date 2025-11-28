@@ -17,7 +17,7 @@ SGMulticolorStateTest >> setUp [
 	super setUp.
 
 	"Put here a common initialization logic for tests"
-	muState := SGMulticolorState uniqueInstance .
+	muState := SGMulticolorState new  .
 ]
 
 { #category : 'tests' }
@@ -140,7 +140,7 @@ SGMulticolorStateTest >> testCompatibilityWithSpecialStateWhenClickOnMulticolorS
 { #category : 'tests' }
 SGMulticolorStateTest >> testEveryBasicStateIsCompatible [
 
-	SGBasicState subclasses do:[:each | self assert: ( each uniqueInstance compatibleWith: muState)  ]
+	SGBasicState subclasses do:[:each | self assert: ( each new  compatibleWith: muState)  ]
 	
 ]
 
@@ -170,7 +170,7 @@ SGMulticolorStateTest >> testHitOnOnlyMulticolor [
 { #category : 'tests' }
 SGMulticolorStateTest >> testIsCompatibleWithEveryBasicState [
 
-	SGBasicState subclasses do:[:each | self assert: (muState compatibleWith: each uniqueInstance)  ]
+	SGBasicState subclasses do:[:each | self assert: (muState compatibleWith: each new )  ]
 	
 ]
 

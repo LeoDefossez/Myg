@@ -73,7 +73,7 @@ SGBoard >> hitBox: aBox [
 	aBox propagateClick.
 	self hitList size > 1 ifTrue: [
 		self game addPointsFor: self hitList.
-		self hitList do: [ :each | each state: SGNullState uniqueInstance ] ].
+		self hitList do: [ :each | each state: SGNullState new ] ].
 
 	self hitList do: [ :each | self reorganizeColumn: each x ].
 
@@ -118,7 +118,7 @@ SGBoard >> reorganizeColumn: x [
 	newCol := col reject: [ :each | each hasNullState ].
 	1 to: newCol size do: [ :i | (col at: i) state: (newCol at: i) state ].
 	newCol size + 1 to: col size do: [ :j |
-	(col at: j) state: SGNullState uniqueInstance ]
+	(col at: j) state: SGNullState new ]
 ]
 
 { #category : 'reorganize' }
