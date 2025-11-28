@@ -138,17 +138,17 @@ SGBox >> killAllInRectangle: aRectangle [
 
 	| boardRectangle targetIntersection |
 	boardRectangle := Rectangle
-		                  origin: 1 @ 1
-		                  corner: board grid width @ board grid height.
+		                  point: 1 @ 1
+		                  point: board grid width @ board grid height.
 
 	targetIntersection := boardRectangle intersect: aRectangle.
 
 	(self board hitList includes: self) ifTrue: [ ^ self ].
 	self board hitList add: self.
-
-	targetIntersection origin x to: targetIntersection extent x + 1 do: [
+	
+	targetIntersection origin x to: targetIntersection corner x do: [
 			:x |
-			targetIntersection origin y to: targetIntersection extent y +1 do: [
+			targetIntersection origin y to: targetIntersection corner y do: [
 			:y | self removeBox: (board boxAt: x @ y) ] ]
 ]
 
@@ -162,9 +162,7 @@ SGBox >> literal [
 SGBox >> propagateBombState [
 
 	| targetRectangle |
-	targetRectangle := Rectangle
-		                   origin: self x - 1 @ self y - 1
-		                   extent: self x + 1 @ self y + 1.
+	targetRectangle := Rectangle point: self x - 1 @ (self y - 1) point: self x + 1 @ (self y + 1).
 	self killAllInRectangle: targetRectangle
 ]
 
@@ -175,16 +173,10 @@ SGBox >> propagateClick [
 
 { #category : 'as yet unclassified' }
 SGBox >> propagateColumnKillerState [
-	| targetRectangle|
-	targetRectangle := Rectangle origin: self x@ 1 extent: self x@ board grid height. 
-	self killAllInRectangle: targetRectangle.
-]
 
-{ #category : 'as yet unclassified' }
-SGBox >> propagateLineKillerState [
-	| targetRectangle|
-	targetRectangle := Rectangle origin: 1@self y extent: board grid width @ self y. 
-	self killAllInRectangle: targetRectangle.
+	| targetRectangle |
+	targetRectangle := Rectangle point: self x @ 1 point: self x @ board grid height.
+	self killAllInRectangle: targetRectangle
 ]
 
 { #category : 'accessing' }
@@ -206,18 +198,10 @@ SGBox >> propagateNullState [
 
 { #category : 'as yet unclassified' }
 SGBox >> propagateRowKillerState [
-	"comment stating purpose of instance-side method"
 
-	"scope: class-variables  &  instance-variables"
-
-	| y xMaxBoard xMinBoard |
-	y := self y.
-	xMaxBoard := board grid width.
-	xMinBoard := 1.
-	(self board hitList includes: self) ifTrue: [ ^ self ].
-	self board hitList add: self.
-	xMinBoard to: xMaxBoard do: [ :x |
-	self removeBox: (board boxAt: x @ y) ]
+	| targetRectangle |
+	targetRectangle := Rectangle point: 1 @ self y point: board grid width @ self y.
+	self killAllInRectangle: targetRectangle
 ]
 
 { #category : 'removing' }
