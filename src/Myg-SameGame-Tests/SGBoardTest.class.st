@@ -475,6 +475,30 @@ SGBoardTest >> testExchangeColonne [
 ]
 
 { #category : 'tests' }
+SGBoardTest >> testHitBoxCallReactToActionOnBox [
+
+	| stateBefore |
+	SGGame new board: (board := SGBoard fromString: '|Cy-Y| Y |
+| B | B |').
+	stateBefore := (board boxAt: 1 @ 1) state state class.
+	board hitBoxOnx: 2 y: 2.
+
+	self deny: (board boxAt: 1 @ 1) state state class equals: stateBefore
+]
+
+{ #category : 'tests' }
+SGBoardTest >> testHitBoxCallReactToActionOnBoxOnlyOnValidAction [
+
+	| stateBefore |
+	SGGame new board: (board := SGBoard fromString: '|Cy-Y| Y |
+| B | R |').
+	stateBefore := (board boxAt: 1 @ 1) state state class.
+	board hitBoxOnx: 2 y: 2.
+
+	self assert: (board boxAt: 1 @ 1) state state class equals: stateBefore
+]
+
+{ #category : 'tests' }
 SGBoardTest >> testReorganiseBoard [
 	"| B |            | B |
  | N |            | Y |

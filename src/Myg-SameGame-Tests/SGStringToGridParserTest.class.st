@@ -104,3 +104,13 @@ SGStringToGridParserTest >> testConvertAnEmptyStringThrowError [
 
 	self should: [ SGStringToGridParser new parse: '' ] raise: Error
 ]
+
+{ #category : 'tests' }
+SGStringToGridParserTest >> testParseCyclingState [
+
+	| box |
+	box := SGStringToGridParser new parseBox: 'Cy-Y'. 
+
+	self assert: box state class equals: SGCyclingState.
+	self assert: box state state class equals: SGYellowState
+]

@@ -36,3 +36,8 @@ SGAbstractState >> propagateFromABox: aSGbox [
 
 	self subclassResponsibility
 ]
+
+{ #category : 'as yet unclassified' }
+SGAbstractState >> reactToActionOn: aBox [
+	"By default do nothing"
+]

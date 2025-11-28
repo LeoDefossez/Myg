@@ -79,6 +79,12 @@ SGBox class >> yellow [
 ]
 
 { #category : 'accessing' }
+SGBox >> announceStateChanged [
+	
+	self announcer announce: SGStateChangedAnnouncement new.
+]
+
+{ #category : 'accessing' }
 SGBox >> announcer [
 
 	^ announcer ifNil: [ announcer := Announcer new ]
@@ -136,20 +142,11 @@ SGBox >> hasNullState [
 { #category : 'propagating' }
 SGBox >> killAllInRectangle: aRectangle [
 
-	| boardRectangle targetIntersection |
-	boardRectangle := Rectangle
-		                  point: 1 @ 1
-		                  point: board grid width @ board grid height.
-
-	targetIntersection := boardRectangle intersect: aRectangle.
-
 	(self board hitList includes: self) ifTrue: [ ^ self ].
 	self board hitList add: self.
-	
-	targetIntersection origin x to: targetIntersection corner x do: [
-			:x |
-			targetIntersection origin y to: targetIntersection corner y do: [
-			:y | self removeBox: (board boxAt: x @ y) ] ]
+
+	(1 max: aRectangle origin x) to: (board grid width min: aRectangle corner x) do: [ :x |
+	(1 max: aRectangle origin y) to: (board grid height min: aRectangle corner y) do: [ :y | self removeBox: (board boxAt: x @ y) ] ]
 ]
 
 { #category : 'accessing' }
@@ -206,8 +203,8 @@ SGBox >> propagateRowKillerState [
 
 { #category : 'removing' }
 SGBox >> removeBox: aBox [
-	self board hitList add: aBox.
-	
+
+	self board hitList add: aBox
 ]
 
 { #category : 'accessing' }
@@ -218,11 +215,10 @@ SGBox >> state [
 
 { #category : 'accessing' }
 SGBox >> state: aState [
-	"(aState class inheritsFrom: SGNullState) ifFalse: [ self halt ]."
 
 	state = aState ifTrue: [ ^ self ].
 	state := aState.
-	self announcer announce: SGStateChangedAnnouncement new.
+	self announceStateChanged
 ]
 
 { #category : 'accessing - structure variables' }

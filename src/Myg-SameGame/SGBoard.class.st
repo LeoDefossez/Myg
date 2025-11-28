@@ -72,8 +72,10 @@ SGBoard >> hitBox: aBox [
 	aBox hasNullState ifTrue: [ ^ self ].
 	aBox propagateClick.
 	self hitList size > 1 ifTrue: [
-		self game addPointsFor: self hitList.
-		self hitList do: [ :each | each state: SGNullState new ] ].
+			self game addPointsFor: self hitList.
+			self hitList do: [ :each | each state: SGNullState new ].
+			"Notify every box that an action has been done on the board"
+			self grid do: [ :each | each state reactToActionOn: each ] ].
 
 	self hitList do: [ :each | self reorganizeColumn: each x ].
 
