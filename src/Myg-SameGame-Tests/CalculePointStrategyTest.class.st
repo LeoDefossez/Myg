@@ -7,15 +7,15 @@ Class {
 }
 
 { #category : 'tests' }
-CalculePointStrategyTest >> testRedDoublePointStrat [ 
+CalculePointStrategyTest >> testRedDoublePointStrat [
 
 	| hitlist score strat |
 	strat := SGCalculeScoreRedDouble new.
 	hitlist := OrderedCollection new.
 	hitlist
-		add: (SGBox new state:SGRedState uniqueInstance );
-		add: (SGBox new state:SGRedState uniqueInstance);
-		add: (SGBox new state:SGGreenState uniqueInstance).
+		add: SGBox red;
+		add: SGBox red;
+		add: SGBox green.
 	score := strat calculePoint: hitlist.
 	self assert: score equals: 25
 ]

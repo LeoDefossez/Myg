@@ -4,8 +4,9 @@ Class {
 	#instVars : [
 		'board'
 	],
-	#category : 'Myg-SameGame-Tests',
-	#package : 'Myg-SameGame-Tests'
+	#category : 'Myg-SameGame-Tests-Model',
+	#package : 'Myg-SameGame-Tests',
+	#tag : 'Model'
 }
 
 { #category : 'running' }

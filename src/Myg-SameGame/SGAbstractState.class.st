@@ -10,12 +10,6 @@ Class {
 }
 
 { #category : 'accessing' }
-SGAbstractState class >> uniqueInstance [
-
-	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
-]
-
-{ #category : 'accessing' }
 SGAbstractState >> backgroundRepresentation [
 
 	^ self subclassResponsibility
@@ -41,4 +35,9 @@ SGAbstractState >> literal [
 SGAbstractState >> propagateFromABox: aSGbox [
 
 	self subclassResponsibility
+]
+
+{ #category : 'as yet unclassified' }
+SGAbstractState >> reactToActionOn: aBox [
+	"By default do nothing"
 ]

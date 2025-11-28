@@ -105,3 +105,11 @@ SGBoardToStringParserTest >> testConvertABoxToString [
 
 	self assert: (SGBoardToStringParser new parseBox: SGBox yellow) equals: 'Y'
 ]
+
+{ #category : 'tests' }
+SGBoardToStringParserTest >> testParseCyclingState [
+
+	| box |
+	box := SGBox cycling.
+	self assert: (SGBoardToStringParser new parseBox: box) equals: box state literal
+]

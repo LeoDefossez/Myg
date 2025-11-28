@@ -9,7 +9,7 @@ Class {
 { #category : 'as yet unclassified' }
 SGBuildRandomBasics >> buildBox [
 
-	^ SGBox withState: registry basics atRandom uniqueInstance
+	^ SGBox withState: registry basics atRandom new 
 ]
 
 { #category : 'as yet unclassified' }

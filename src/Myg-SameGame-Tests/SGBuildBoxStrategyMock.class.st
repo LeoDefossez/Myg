@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'count'
 	],
-	#category : 'Myg-SameGame-Tests-Model',
+	#category : 'Myg-SameGame-Tests-Mocks',
 	#package : 'Myg-SameGame-Tests',
-	#tag : 'Model'
+	#tag : 'Mocks'
 }
 
 { #category : 'as yet unclassified' }
