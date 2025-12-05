@@ -32,6 +32,12 @@ SGBox class >> columnKiller [
 	^ self withState: SGColumnKiller new
 ]
 
+{ #category : 'as yet unclassified' }
+SGBox class >> cycling [
+	
+	^ self withState: SGCyclingState new
+]
+
 { #category : 'constants' }
 SGBox class >> green [
 
