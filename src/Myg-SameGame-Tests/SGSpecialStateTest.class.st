@@ -17,17 +17,17 @@ SGSpecialStateTest >> setUp [
 	super setUp.
 
 	"Put here a common initialization logic for tests"
-	specialState := SGSpecialState uniqueInstance.
+	specialState := SGSpecialState new .
 ]
 
 { #category : 'tests' }
 SGSpecialStateTest >> testSGSpecialStateIsByDefaultIncompatibleWithBasicStates [
 
-	self deny: (specialState compatibleWithBasicState: SGBasicState uniqueInstance)
+	self deny: (specialState compatibleWithBasicState: SGBasicState new )
 ]
 
 { #category : 'tests' }
 SGSpecialStateTest >> testSGSpecialStateIsByDefaultIncompatibleWithMulticolorTiles [
 
-	self deny: (specialState compatibleWithMulticolor: SGMulticolorState uniqueInstance)
+	self deny: (specialState compatibleWithMulticolor: SGMulticolorState new )
 ]

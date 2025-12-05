@@ -8,6 +8,7 @@ Class {
 
 { #category : 'accessing' }
 SGBasicState >> compatibleWith: aSGState [
+
 	^ aSGState compatibleWithBasicState: self
 ]
 

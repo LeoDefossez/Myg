@@ -6,6 +6,17 @@ Class {
 	#tag : 'Model'
 }
 
+{ #category : 'as yet unclassified' }
+SGStringToGridParser >> findStateFor: aString [ 
+
+	| possibilityList registry |
+	registry := SGStateRegistry new.
+	possibilityList := registry all collect: [ :class | class new ] thenSelect: [ :state | state literal = aString ].
+	possibilityList size < 1 ifTrue: [ ^ self error: 'error: The value ' , aString , ' does not match with box.' ].
+	
+	^ possibilityList first
+]
+
 { #category : 'converting' }
 SGStringToGridParser >> parse: aString [
 
@@ -24,17 +35,14 @@ SGStringToGridParser >> parse: aString [
 { #category : 'visiting' }
 SGStringToGridParser >> parseBox: aString [
 
-	| registry possibilityList |
-	registry := SGStateRegistry new.
-
-	possibilityList := registry all
-		                   collect: [ :class | class uniqueInstance ]
-		                   thenSelect: [ :state | state literal = aString ].
-	possibilityList size < 1 ifTrue: [
-		^ self error: 'error: The value ' , aString , 'don"t match with box.' ].
+	| state |
+	"Checks if the string correspond to a cycling state"
+	state := (aString includes: $-)
+		         ifTrue: [ SGCyclingState new state: (self findStateFor: (aString splitOn: '-') second) ]
+		         ifFalse: [ self findStateFor: aString ].
 
 	^ SGBox new
-		  state: possibilityList first;
+		  state: state;
 		  yourself
 ]
 

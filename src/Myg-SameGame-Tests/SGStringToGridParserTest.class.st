@@ -47,12 +47,12 @@ SGStringToGridParserTest >> testConvertAStringToABoard [
 	| grid |
 	grid := SGStringToGridParser new parse: '| R | Y | R |
  | B | Bo | G |'.
-	self assert: (grid at: 1 @ 1) state equals: SGRedState uniqueInstance.
-	self assert: (grid at: 2 @ 1) state equals: SGYellowState uniqueInstance.
-	self assert: (grid at: 3 @ 1) state equals: SGRedState uniqueInstance.
-	self assert: (grid at: 1 @ 2) state equals: SGBlueState uniqueInstance.
-	self assert: (grid at: 2 @ 2) state equals: SGBombState uniqueInstance.
-	self assert: (grid at: 3 @ 2) state equals: SGGreenState uniqueInstance
+	self assert: (grid at: 1 @ 1) state class equals: SGRedState new class.
+	self assert: (grid at: 2 @ 1) state class equals: SGYellowState new class.
+	self assert: (grid at: 3 @ 1) state class equals: SGRedState new class.
+	self assert: (grid at: 1 @ 2) state class equals: SGBlueState new class.
+	self assert: (grid at: 2 @ 2) state class equals: SGBombState new class.
+	self assert: (grid at: 3 @ 2) state class equals: SGGreenState new class
 ]
 
 { #category : 'tests' }
@@ -86,12 +86,12 @@ SGStringToGridParserTest >> testConvertAStringToABoardWorkWithTooMuchBar [
 	| grid |
 	grid := SGStringToGridParser new parse: '| R|| | Y | R |
  | B | Bo||||| | G |'.
-	self assert: (grid at: 1 @ 1) state equals: SGRedState uniqueInstance.
-	self assert: (grid at: 2 @ 1) state equals: SGYellowState uniqueInstance.
-	self assert: (grid at: 3 @ 1) state equals: SGRedState uniqueInstance.
-	self assert: (grid at: 1 @ 2) state equals: SGBlueState uniqueInstance.
-	self assert: (grid at: 2 @ 2) state equals: SGBombState uniqueInstance.
-	self assert: (grid at: 3 @ 2) state equals: SGGreenState uniqueInstance
+	self assert: (grid at: 1 @ 1) state class equals: SGRedState new class.
+	self assert: (grid at: 2 @ 1) state class equals: SGYellowState new class.
+	self assert: (grid at: 3 @ 1) state class equals: SGRedState new class.
+	self assert: (grid at: 1 @ 2) state class equals: SGBlueState new class.
+	self assert: (grid at: 2 @ 2) state class equals: SGBombState new class.
+	self assert: (grid at: 3 @ 2) state class equals: SGGreenState new class
 ]
 
 { #category : 'tests' }
@@ -103,4 +103,14 @@ SGStringToGridParserTest >> testConvertAnEmptyStringThrowError [
  "
 
 	self should: [ SGStringToGridParser new parse: '' ] raise: Error
+]
+
+{ #category : 'tests' }
+SGStringToGridParserTest >> testParseCyclingState [
+
+	| box |
+	box := SGStringToGridParser new parseBox: 'Cy-Y'. 
+
+	self assert: box state class equals: SGCyclingState.
+	self assert: box state state class equals: SGYellowState
 ]

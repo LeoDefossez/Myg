@@ -243,8 +243,8 @@ SGBoardTest >> testClickOnBlueCase [
 	board hitBoxOnx: 1 y: 1.
 
 	self assert: board grid size equals: resGrid grid size.
-	self assert: (board grid at: 1 @ 1) state equals: (resGrid grid at: 1 @ 1) state.
-	self assert: (board grid at: 2 @ 1) state equals: (resGrid grid at: 2 @ 1) state
+	self assert: (board grid at: 1 @ 1) state class equals: (resGrid grid at: 1 @ 1) state class. 
+	self assert: (board grid at: 2 @ 1) state class equals: (resGrid grid at: 2 @ 1) state class
 ]
 
 { #category : 'tests' }
@@ -472,6 +472,30 @@ SGBoardTest >> testExchangeColonne [
 	self assert: (board boxAt: 2 @ 1) literal equals: 'N'.
 	self assert: (board boxAt: 2 @ 2) literal equals: 'N'.
 	self assert: (board boxAt: 2 @ 3) literal equals: 'N'
+]
+
+{ #category : 'tests' }
+SGBoardTest >> testHitBoxCallReactToActionOnBox [
+
+	| stateBefore |
+	SGGame new board: (board := SGBoard fromString: '|Cy-Y| Y |
+| B | B |').
+	stateBefore := (board boxAt: 1 @ 1) state state class.
+	board hitBoxOnx: 2 y: 2.
+
+	self deny: (board boxAt: 1 @ 1) state state class equals: stateBefore
+]
+
+{ #category : 'tests' }
+SGBoardTest >> testHitBoxCallReactToActionOnBoxOnlyOnValidAction [
+
+	| stateBefore |
+	SGGame new board: (board := SGBoard fromString: '|Cy-Y| Y |
+| B | R |').
+	stateBefore := (board boxAt: 1 @ 1) state state class.
+	board hitBoxOnx: 2 y: 2.
+
+	self assert: (board boxAt: 1 @ 1) state state class equals: stateBefore
 ]
 
 { #category : 'tests' }

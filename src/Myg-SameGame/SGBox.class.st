@@ -13,7 +13,7 @@ Class {
 { #category : 'constants' }
 SGBox class >> blue [ 
 
-	^ self withState: SGBlueState uniqueInstance 
+	^ self withState: SGBlueState new 
 ]
 
 { #category : 'as yet unclassified' }
@@ -21,7 +21,7 @@ SGBox class >> bomb [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGBombState uniqueInstance
+	^ self withState: SGBombState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -29,13 +29,13 @@ SGBox class >> columnKiller [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGColumnKiller uniqueInstance
+	^ self withState: SGColumnKiller new
 ]
 
 { #category : 'constants' }
 SGBox class >> green [
 
-	^ self withState: SGGreenState uniqueInstance
+	^ self withState: SGGreenState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -43,7 +43,7 @@ SGBox class >> lineKiller [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGRowKillerState uniqueInstance
+	^ self withState: SGRowKillerState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -51,19 +51,19 @@ SGBox class >> multicolor [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"
 
-	^ self withState: SGMulticolorState uniqueInstance
+	^ self withState: SGMulticolorState new
 ]
 
 { #category : 'factory' }
 SGBox class >> null [
 
-	^ self withState: SGNullState uniqueInstance 
+	^ self withState: SGNullState new 
 ]
 
 { #category : 'constants' }
 SGBox class >> red [
 
-	^ self withState: SGRedState uniqueInstance
+	^ self withState: SGRedState new
 ]
 
 { #category : 'as yet unclassified' }
@@ -75,7 +75,13 @@ SGBox class >> withState: aState [
 { #category : 'constants' }
 SGBox class >> yellow [
 
-	^ self withState: SGYellowState uniqueInstance
+	^ self withState: SGYellowState new
+]
+
+{ #category : 'accessing' }
+SGBox >> announceStateChanged [
+	
+	self announcer announce: SGStateChangedAnnouncement new.
 ]
 
 { #category : 'accessing' }
@@ -136,20 +142,11 @@ SGBox >> hasNullState [
 { #category : 'propagating' }
 SGBox >> killAllInRectangle: aRectangle [
 
-	| boardRectangle targetIntersection |
-	boardRectangle := Rectangle
-		                  point: 1 @ 1
-		                  point: board grid width @ board grid height.
-
-	targetIntersection := boardRectangle intersect: aRectangle.
-
 	(self board hitList includes: self) ifTrue: [ ^ self ].
 	self board hitList add: self.
-	
-	targetIntersection origin x to: targetIntersection corner x do: [
-			:x |
-			targetIntersection origin y to: targetIntersection corner y do: [
-			:y | self removeBox: (board boxAt: x @ y) ] ]
+
+	(1 max: aRectangle origin x) to: (board grid width min: aRectangle corner x) do: [ :x |
+	(1 max: aRectangle origin y) to: (board grid height min: aRectangle corner y) do: [ :y | self removeBox: (board boxAt: x @ y) ] ]
 ]
 
 { #category : 'accessing' }
@@ -206,8 +203,8 @@ SGBox >> propagateRowKillerState [
 
 { #category : 'removing' }
 SGBox >> removeBox: aBox [
-	self board hitList add: aBox.
-	
+
+	self board hitList add: aBox
 ]
 
 { #category : 'accessing' }
@@ -218,11 +215,10 @@ SGBox >> state [
 
 { #category : 'accessing' }
 SGBox >> state: aState [
-	"(aState class inheritsFrom: SGNullState) ifFalse: [ self halt ]."
 
 	state = aState ifTrue: [ ^ self ].
 	state := aState.
-	self announcer announce: SGStateChangedAnnouncement new.
+	self announceStateChanged
 ]
 
 { #category : 'accessing - structure variables' }
