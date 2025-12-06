@@ -14,10 +14,13 @@ Class {
 
 { #category : 'running' }
 SGStateRegistryTest >> setUp [
+
 	super setUp.
 
 	"Put here a common initialization logic for tests"
-	registry := SGStateRegistry new.
+	registry := SGStateRegistry
+		            requestUpdate;
+		            uniqueInstance
 ]
 
 { #category : 'tests' }

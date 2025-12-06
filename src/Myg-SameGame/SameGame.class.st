@@ -90,6 +90,8 @@ SameGame >> calculeScoreStrategy: aSGCalculeScoreStrategy [
 SameGame >> createGame [
 
 	| game board |
+	SGStateRegistry requestUpdate.
+	
 	game := SGGame new.
 	board := SGBoard new.
 	game board: board.

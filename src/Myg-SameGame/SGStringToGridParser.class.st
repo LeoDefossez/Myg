@@ -7,13 +7,13 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-SGStringToGridParser >> findStateFor: aString [ 
+SGStringToGridParser >> findStateFor: aString [
 
 	| possibilityList registry |
-	registry := SGStateRegistry new.
+	registry := SGStateRegistry uniqueInstance.
 	possibilityList := registry all collect: [ :class | class new ] thenSelect: [ :state | state literal = aString ].
 	possibilityList size < 1 ifTrue: [ ^ self error: 'error: The value ' , aString , ' does not match with box.' ].
-	
+
 	^ possibilityList first
 ]
 

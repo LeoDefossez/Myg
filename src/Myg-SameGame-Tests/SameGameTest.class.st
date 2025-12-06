@@ -1,10 +1,30 @@
 Class {
 	#name : 'SameGameTest',
 	#superclass : 'TestCase',
+	#instVars : [
+		'space'
+	],
 	#category : 'Myg-SameGame-Tests-Model',
 	#package : 'Myg-SameGame-Tests',
 	#tag : 'Model'
 }
+
+{ #category : 'tests' }
+SameGameTest >> ensureClose: aSpace [
+
+	self assert: (BlSpace pulseUntilEmptyTaskQueue: aSpace timeout: 500 milliSeconds).
+
+	aSpace close.
+
+	self assert: (BlSpace pulseUntilEmptyTaskQueue: aSpace timeout: 500 milliSeconds).
+]
+
+{ #category : 'tests' }
+SameGameTest >> tearDown [
+
+	space ifNotNil: [ self ensureClose: space ].
+	super tearDown
+]
 
 { #category : 'tests' }
 SameGameTest >> testBasicSize [
@@ -16,6 +36,15 @@ SameGameTest >> testBasicSize [
 	board := SameGame new createGame board.
 	self assert: board grid width equals: 20.
 	self assert: board grid height equals: 20
+]
+
+{ #category : 'tests' }
+SameGameTest >> testCreateGameRequestUpdateOnRegistry [
+
+	| before |
+	before := SGStateRegistry uniqueInstance.
+	(SameGame width: 1 height: 1) createGame.
+	self deny: before equals: SGStateRegistry uniqueInstance
 ]
 
 { #category : 'tests' }
@@ -69,12 +98,11 @@ SameGameTest >> testGraphicGameUseOurWidth [
 { #category : 'tests' }
 SameGameTest >> testOpenRegisterLastGame [
 
-	| sggame game show |
+	| sggame game |
 	SGRessources lastGame: nil.
 	sggame := SameGame new.
 	game := sggame createGame.
-	show := sggame open: game.
+	space := sggame open: game.
 
-	self assert: SGRessources lastGame equals: game board toString.
-	show close
+	self assert: SGRessources lastGame equals: game board toString
 ]
