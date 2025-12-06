@@ -34,7 +34,7 @@ SGCyclingState >> initialize [
 
 	super initialize.
 
-	states := SGStateRegistry new basics asOrderedCollection.
+	states := SGStateRegistry uniqueInstance basics asOrderedCollection.
 	state := states atRandom new
 ]
 
