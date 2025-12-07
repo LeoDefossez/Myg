@@ -20,6 +20,11 @@ SameGame class >> open [
 ]
 
 { #category : 'instance creation' }
+SameGame class >> openFromString: aString [ 
+	^ self new openFromString: aString
+]
+
+{ #category : 'instance creation' }
 SameGame class >> openLastGame [
 
 	^ self new openLevel: 0
@@ -62,6 +67,19 @@ SameGame >> baseWidth [
 	^ 20
 ]
 
+{ #category : 'as yet unclassified' }
+SameGame >> basicCreateGame [
+
+	| game board |
+	SGStateRegistry requestUpdate.
+	game := SGGame new.
+	board := SGBoard new.
+	game board: board.
+	self buildBoxStrategy ifNotNil: [ :strat | board buildBoxStrategy: buildBoxStrategy ].
+	self calculeScoreStrategy ifNotNil: [ :strat | board scoreStrategyCalculator: buildBoxStrategy ].
+	^ game
+]
+
 { #category : 'accessing' }
 SameGame >> buildBoxStrategy [
 
@@ -89,16 +107,20 @@ SameGame >> calculeScoreStrategy: aSGCalculeScoreStrategy [
 { #category : 'opening' }
 SameGame >> createGame [
 
-	| game board |
-	SGStateRegistry requestUpdate.
-	
-	game := SGGame new.
-	board := SGBoard new.
-	game board: board.
-	self buildBoxStrategy ifNotNil: [ :strat | board buildBoxStrategy: buildBoxStrategy ].
-	self calculeScoreStrategy ifNotNil: [ :strat | board scoreStrategyCalculator: buildBoxStrategy ].
+	| game |
+	game := self basicCreateGame.
 
-	board generateGridWidth: self width height: self height.
+	game board generateGridWidth: self width height: self height.
+	^ game
+]
+
+{ #category : 'opening' }
+SameGame >> createGameFromString: aString [
+
+	| game |
+	game := self basicCreateGame.
+
+	game board fromString: aString.
 	^ game
 ]
 
@@ -156,18 +178,25 @@ SameGame >> open: aGame [
 	^ space
 ]
 
+{ #category : 'as yet unclassified' }
+SameGame >> openFromString: aString [
+
+	| game |
+	game := self createGameFromString: aString.
+	
+	^ self open: game
+
+]
+
 { #category : 'opening' }
 SameGame >> openLevel: anInteger [
 
-	| game level |
-	level := (Pragma allNamed: #SGLevel: )
+	| level |
+	level := (Pragma allNamed: #SGLevel:)
 		         detect: [ :prag | prag arguments first = anInteger ]
 		         ifNone: [ self error: 'The level ' , anInteger asString , ' does not exist' ].
 
-	game := self createGame.
-	game board fromString: (level method valueWithReceiver: SGRessources).
-
-	^ self open: game
+	^ self openFromString: (level method valueWithReceiver: SGRessources)
 ]
 
 { #category : 'accessing' }
