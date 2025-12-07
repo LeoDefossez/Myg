@@ -27,7 +27,7 @@ SGBuildBoxStrategy >> distribution [
 { #category : 'initialization' }
 SGBuildBoxStrategy >> initialize [
 
-	registry := SGStateRegistry new.
+	registry := SGStateRegistry uniqueInstance.
 	self updateDistribution
 ]
 
