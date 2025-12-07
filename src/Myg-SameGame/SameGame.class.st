@@ -160,7 +160,7 @@ SameGame >> open: aGame [
 SameGame >> openLevel: anInteger [
 
 	| game level |
-	level := (Pragma allNamed: #SGLevel: in: SGRessources)
+	level := (Pragma allNamed: #SGLevel: )
 		         detect: [ :prag | prag arguments first = anInteger ]
 		         ifNone: [ self error: 'The level ' , anInteger asString , ' does not exist' ].
 
