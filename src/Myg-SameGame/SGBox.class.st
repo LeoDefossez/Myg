@@ -162,6 +162,12 @@ SGBox >> literal [
 ]
 
 { #category : 'propagating' }
+SGBox >> propagateBasicState [
+	^ self defaultPropagate.
+	
+]
+
+{ #category : 'propagating' }
 SGBox >> propagateBombState [
 
 	| targetRectangle |
@@ -185,12 +191,6 @@ SGBox >> propagateColumnKillerState [
 { #category : 'accessing' }
 SGBox >> propagateMulticolorState [
 	^ self defaultPropagate.
-]
-
-{ #category : 'propagating' }
-SGBox >> propagateNormalState [
-	^ self defaultPropagate.
-	
 ]
 
 { #category : 'accessing' }
