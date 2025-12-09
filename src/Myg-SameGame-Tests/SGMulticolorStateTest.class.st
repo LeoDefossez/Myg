@@ -31,40 +31,30 @@ SGMulticolorStateTest >> testCompatibilityWithBasicStateWhenClickOnBasicState [
 	"
 
 	| board |
-	
 	board := SGBoard new.
 	SGGame new board: board.
-	
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox green;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox multicolor;
-			 at: 3 @ 2 put: SGBox green;
-			 at: 1 @ 3 put: SGBox red;
-			 at: 2 @ 3 put: SGBox yellow;
-			 at: 3 @ 3 put: SGBox null;
-			 yourself).
+	board fromString: '| B | Y | G | 
+| B | Mu | G | 
+| R | Y | N | '.
+
 
 	board hitBoxOnx: 1 y: 1.
 	"expect:
-	 | R | N | N | 
-	 | N | N | N | 
-	 | N | N | N | 
-
+	 | R | Y | G | 
+	 | N | Mu | G | 
+	 | N | Y | N | 
 	"
 
 	self assert: (board boxAt: 1 @ 1) state class equals: SGRedState.
-	self assert: (board boxAt: 2 @ 1) state class equals: SGNullState.
-	self assert: (board boxAt: 3 @ 1) state class equals: SGNullState.
+	self assert: (board boxAt: 2 @ 1) state class equals: SGYellowState.
+	self assert: (board boxAt: 3 @ 1) state class equals: SGGreenState.
 
 	self assert: (board boxAt: 1 @ 2) state class equals: SGNullState.
-	self assert: (board boxAt: 2 @ 2) state class equals: SGNullState.
-	self assert: (board boxAt: 3 @ 2) state class equals: SGNullState.
+	self assert: (board boxAt: 2 @ 2) state class equals: SGMulticolorState.
+	self assert: (board boxAt: 3 @ 2) state class equals: SGGreenState.
 
 	self assert: (board boxAt: 1 @ 3) state class equals: SGNullState.
-	self assert: (board boxAt: 2 @ 3) state class equals: SGNullState.
+	self assert: (board boxAt: 2 @ 3) state class equals: SGYellowState.
 	self assert: (board boxAt: 3 @ 3) state class equals: SGNullState
 ]
 
@@ -168,15 +158,14 @@ SGMulticolorStateTest >> testHitOnOnlyMulticolor [
 ]
 
 { #category : 'tests' }
-SGMulticolorStateTest >> testIsCompatibleWithEveryBasicState [
-
-	SGBasicState subclasses do:[:each | self assert: (muState compatibleWith: each new )  ]
-	
-]
-
-{ #category : 'tests' }
 SGMulticolorStateTest >> testIsCompatibleWithItself [
 
 	self assert: (muState compatibleWith: muState )
 	
+]
+
+{ #category : 'tests' }
+SGMulticolorStateTest >> testIsIncompatibleWithEveryBasicState [
+
+	SGBasicState subclasses do: [ :each | self deny: (muState compatibleWith: each new) ]
 ]

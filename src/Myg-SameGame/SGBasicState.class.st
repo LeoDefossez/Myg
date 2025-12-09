@@ -20,7 +20,7 @@ SGBasicState >> compatibleWithBasicState: aSGBasicState [
 { #category : 'accessing' }
 SGBasicState >> compatibleWithMulticolor: aSGMulticolorState [ 
 	
-	^ true
+	^ false
 ]
 
 { #category : 'as yet unclassified' }
