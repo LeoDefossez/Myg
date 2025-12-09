@@ -53,17 +53,9 @@ SGBoardTest >> testClickAndCaseNothingAppend [
 	 | B | G | G | 
 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox red;
-			 at: 2 @ 2 put: SGBox red;
-			 at: 3 @ 2 put: SGBox red;
-			 at: 1 @ 3 put: SGBox blue;
-			 at: 2 @ 3 put: SGBox green;
-			 at: 3 @ 3 put: SGBox green;
-			 yourself).
+	board fromString: '| B | Y | Y | 
+                      | R | R | R | 
+                      | B | G | G | '.
 
 	board hitBoxOnx: 1 y: 3.
 
@@ -72,7 +64,6 @@ SGBoardTest >> testClickAndCaseNothingAppend [
 
 { #category : 'tests' }
 SGBoardTest >> testClickAndMultipleCaseDisappear [
-
 	"Y: Yellow , B: Blue , G: Green , R: Red
 	represents this grid:
 	 | B | Y | Y | 
@@ -80,17 +71,10 @@ SGBoardTest >> testClickAndMultipleCaseDisappear [
 	 | B | G | G | 
 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox red;
-			 at: 2 @ 2 put: SGBox red;
-			 at: 3 @ 2 put: SGBox red;
-			 at: 1 @ 3 put: SGBox blue;
-			 at: 2 @ 3 put: SGBox green;
-			 at: 3 @ 3 put: SGBox green;
-			 yourself).
+
+	board fromString: '| B | Y | Y | 
+                      | R | R | R | 
+                      | B | G | G | '.
 
 	board hitBoxOnx: 1 y: 2.
 
@@ -99,24 +83,16 @@ SGBoardTest >> testClickAndMultipleCaseDisappear [
 
 { #category : 'tests' }
 SGBoardTest >> testClickAndOneColumnDisappear [
-
 	"Y: Yellow , B: Blue , G: Green , R: Red
 	represents this grid:
-	 | R | Y | r | 
-	 | B | y | b | 
-	 | G | y | g | 
+	 | R | Y | R | 
+	 | B | Y | B | 
+	 | G | Y | G | 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox red;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox red;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox yellow;
-			 at: 3 @ 2 put: SGBox blue;
-			 at: 1 @ 3 put: SGBox green;
-			 at: 2 @ 3 put: SGBox yellow;
-			 at: 3 @ 3 put: SGBox green;
-			 yourself).
+
+	board fromString: '| B | Y | R | 
+                      | R | Y | B | 
+                      | B | Y | G | '.
 
 	board hitBoxOnx: 2 y: 2.
 
@@ -139,27 +115,9 @@ SGBoardTest >> testClickOn2BlueBoxesColumnRearrange [
 
 	"
 
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox green;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox yellow;
-			 at: 3 @ 2 put: SGBox green;
-			 at: 1 @ 3 put: SGBox red;
-			 at: 2 @ 3 put: SGBox yellow;
-			 at: 3 @ 3 put: SGBox null;
-			 yourself).
-
-	self assert: (board grid at: 1 @ 1) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 2) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 3) literal equals: 'R'.
-	self assert: (board grid at: 2 @ 1) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 2) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 3) literal equals: 'Y'.
-	self assert: (board grid at: 3 @ 1) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 2) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 3) literal equals: 'N'.
+	board fromString: '| B | Y | G | 
+                      | B | Y | G | 
+                      | R | Y | N | '.
 
 	board hitBoxOnx: 1 y: 1.
 
@@ -184,27 +142,9 @@ SGBoardTest >> testClickOn3YellowBoxesSwitchEmptyColumn [
 
 	"
 
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox green;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox yellow;
-			 at: 3 @ 2 put: SGBox green;
-			 at: 1 @ 3 put: SGBox red;
-			 at: 2 @ 3 put: SGBox yellow;
-			 at: 3 @ 3 put: SGBox null;
-			 yourself).
-
-	self assert: (board grid at: 1 @ 1) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 2) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 3) literal equals: 'R'.
-	self assert: (board grid at: 2 @ 1) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 2) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 3) literal equals: 'Y'.
-	self assert: (board grid at: 3 @ 1) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 2) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 3) literal equals: 'N'.
+	board fromString: '| B | Y | G | 
+                      | B | Y | G | 
+                      | R | Y | N | '.
 
 	board hitBoxOnx: 2 y: 1.
 
@@ -225,25 +165,17 @@ SGBoardTest >> testClickOnBlueCase [
 	| resGrid |
 	"| B B  |			   | G R | 
  | G R  |     =>  | N N |"
-	board configureGrid: ((CTNewArray2D width: 2 height: 2)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox blue;
-			 at: 1 @ 2 put: SGBox green;
-			 at: 2 @ 2 put: SGBox red;
-			 yourself).
+	board fromString: '| B | B |
+                      | G | R |'.
 
 	resGrid := SGBoard new.
-	resGrid configureGrid: ((CTNewArray2D width: 2 height: 2)
-			 at: 1 @ 1 put: SGBox green;
-			 at: 2 @ 1 put: SGBox red;
-			 at: 1 @ 2 put: SGBox null;
-			 at: 2 @ 2 put: SGBox null;
-			 yourself).
+	resGrid fromString: '| G | R |
+                        | N | N |'.
 
 	board hitBoxOnx: 1 y: 1.
 
 	self assert: board grid size equals: resGrid grid size.
-	self assert: (board grid at: 1 @ 1) state class equals: (resGrid grid at: 1 @ 1) state class. 
+	self assert: (board grid at: 1 @ 1) state class equals: (resGrid grid at: 1 @ 1) state class.
 	self assert: (board grid at: 2 @ 1) state class equals: (resGrid grid at: 2 @ 1) state class
 ]
 
@@ -257,27 +189,9 @@ SGBoardTest >> testClickOnIsolatedBoxNothingChanges [
 
 	"
 
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox green;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox yellow;
-			 at: 3 @ 2 put: SGBox green;
-			 at: 1 @ 3 put: SGBox red;
-			 at: 2 @ 3 put: SGBox yellow;
-			 at: 3 @ 3 put: SGBox null;
-			 yourself).
-
-	self assert: (board grid at: 1 @ 1) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 2) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 3) literal equals: 'R'.
-	self assert: (board grid at: 2 @ 1) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 2) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 3) literal equals: 'Y'.
-	self assert: (board grid at: 3 @ 1) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 2) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 3) literal equals: 'N'.
+	board fromString: '| B | Y | G | 
+                      | B | Y | G | 
+                      | R | Y | N | '.
 
 	board hitBoxOnx: 1 y: 3.
 
@@ -302,27 +216,9 @@ SGBoardTest >> testClickOnNullNothingChanges [
 
 	"
 
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox blue;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox green;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox yellow;
-			 at: 3 @ 2 put: SGBox green;
-			 at: 1 @ 3 put: SGBox red;
-			 at: 2 @ 3 put: SGBox yellow;
-			 at: 3 @ 3 put: SGBox null;
-			 yourself).
-
-	self assert: (board grid at: 1 @ 1) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 2) literal equals: 'B'.
-	self assert: (board grid at: 1 @ 3) literal equals: 'R'.
-	self assert: (board grid at: 2 @ 1) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 2) literal equals: 'Y'.
-	self assert: (board grid at: 2 @ 3) literal equals: 'Y'.
-	self assert: (board grid at: 3 @ 1) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 2) literal equals: 'G'.
-	self assert: (board grid at: 3 @ 3) literal equals: 'N'.
+	board fromString: '| B | Y | G | 
+                      | B | Y | G | 
+                      | R | Y | N | '.
 
 	board hitBoxOnx: 3 y: 3.
 
@@ -340,17 +236,9 @@ SGBoardTest >> testClickOnNullNothingChanges [
 { #category : 'tests' }
 SGBoardTest >> testColonneIsEmpty [
 
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox null;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox null;
-			 at: 2 @ 2 put: SGBox red;
-			 at: 3 @ 2 put: SGBox red;
-			 at: 1 @ 3 put: SGBox null;
-			 at: 2 @ 3 put: SGBox green;
-			 at: 3 @ 3 put: SGBox green;
-			 yourself).
+	board fromString: '|N|Y|Y|
+                      |N|R|R|
+                      |N|G|G|'.
 
 	self assert: (board isColumnEmpty: 1).
 	self deny: (board isColumnEmpty: 2)
@@ -358,17 +246,7 @@ SGBoardTest >> testColonneIsEmpty [
 
 { #category : 'tests' }
 SGBoardTest >> testConvertABoardToStringWithNullState [
-	"Y: Yellow , B: Blue , G: Green , R: Red , Mu : Multicolor
- represents this grid:
- | R | Y | r | r | r |
- | B | y | N | r | r |
- | N | y | Bo | r | r |
- | B | y | b | r | r |
- | B | g | y | b | N |
- "
 
-	| board |
-	board := SGBoard new.
 	board configureGrid: ((CTNewArray2D width: 5 height: 5)
 			 at: 1 @ 1 put: SGBox red;
 			 at: 2 @ 1 put: SGBox yellow;
@@ -396,6 +274,7 @@ SGBoardTest >> testConvertABoardToStringWithNullState [
 			 at: 4 @ 5 put: SGBox blue;
 			 at: 5 @ 5 put: SGBox null;
 			 yourself).
+			
 	self assert: board toString equals: ('| R | Y | R | R | R |
 | B | Y | N | R | R |
 | N | Y | Bo | R | R |
@@ -406,8 +285,7 @@ SGBoardTest >> testConvertABoardToStringWithNullState [
 { #category : 'tests' }
 SGBoardTest >> testCreateBoardFromAStringReturnABoardWithEveryBoxContainingTheBoard [
 
-	| board |
-	board := SGBoard fromString: '| R|| | Y | R |
+	board fromString: '| R|| | Y | R |
  | B | Bo||||| | G |'.
 
 	self assert: (board boxAt: 1 @ 1) board equals: board.
@@ -421,18 +299,10 @@ SGBoardTest >> testCreateBoardFromAStringReturnABoardWithEveryBoxContainingTheBo
 { #category : 'tests' }
 SGBoardTest >> testExchangeCase [
 
-	| case1 case2  |
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox null;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox null;
-			 at: 2 @ 2 put: SGBox red;
-			 at: 3 @ 2 put: SGBox red;
-			 at: 1 @ 3 put: SGBox null;
-			 at: 2 @ 3 put: SGBox green;
-			 at: 3 @ 3 put: SGBox green;
-			 yourself).
+	| case1 case2 |
+	board fromString: '|N|Y|Y|
+                      |N|R|R|
+                      |N|G|G|'.
 
 
 	case1 := board boxAt: 1 @ 1.
@@ -452,17 +322,9 @@ SGBoardTest >> testExchangeCase [
 { #category : 'tests' }
 SGBoardTest >> testExchangeColonne [
 
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox null;
-			 at: 2 @ 1 put: SGBox yellow;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox null;
-			 at: 2 @ 2 put: SGBox red;
-			 at: 3 @ 2 put: SGBox red;
-			 at: 1 @ 3 put: SGBox null;
-			 at: 2 @ 3 put: SGBox green;
-			 at: 3 @ 3 put: SGBox green;
-			 yourself).
+	board fromString: '|N|Y|Y|
+                      |N|R|R|
+                      |N|G|G|'.
 
 	board switchColumn: 1 withColumn: 2.
 	self assert: (board boxAt: 1 @ 1) literal equals: 'Y'.

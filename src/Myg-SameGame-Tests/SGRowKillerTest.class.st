@@ -19,7 +19,6 @@ SGRowKillerTest >> setUp [
 { #category : 'tests' }
 SGRowKillerTest >> testClickOnRowKiller [
 
-	| graphicBoard |
 	"Y: Yellow , B: Blue , G: Green , R: Red , Lk : LineKiller
 	represents this grid:
 	 | R | R | Y  |
@@ -27,17 +26,9 @@ SGRowKillerTest >> testClickOnRowKiller [
 	 | Y | B | R |
 	 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox red;
-			 at: 2 @ 1 put: SGBox red;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox lineKiller;
-			 at: 3 @ 2 put: SGBox lineKiller;
-			 at: 1 @ 3 put: SGBox yellow;
-			 at: 2 @ 3 put: SGBox blue;
-			 at: 3 @ 3 put: SGBox red;
-			 yourself).
+	board fromString: '| R | R | Y  |
+                      | B | Lk | Lk |
+                      | Y | B | R |'.
 
 	board hitBoxOnx: 2 y: 2.
 
@@ -66,7 +57,6 @@ SGRowKillerTest >> testClickOnRowKiller [
 { #category : 'tests' }
 SGRowKillerTest >> testClickOnRowKillerAndTheLineDisappear [
 
-	| graphicBoard |
 	"Y: Yellow , B: Blue , G: Green , R: Red , Lk : LineKiller
 	represents this grid:
 	 | R | R | Y  |
@@ -74,17 +64,9 @@ SGRowKillerTest >> testClickOnRowKillerAndTheLineDisappear [
 	 | Y | B | R |
 	 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox red;
-			 at: 2 @ 1 put: SGBox red;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox lineKiller ;
-			 at: 3 @ 2 put: SGBox blue;
-			 at: 1 @ 3 put: SGBox yellow;
-			 at: 2 @ 3 put: SGBox blue;
-			 at: 3 @ 3 put: SGBox red;
-			 yourself).
+	board fromString: '| R | R | Y  |
+                      | B | Lk | B |
+                      | Y | B | R |'.
 
 	board hitBoxOnx: 2 y: 2.
 
@@ -113,7 +95,6 @@ SGRowKillerTest >> testClickOnRowKillerAndTheLineDisappear [
 { #category : 'tests' }
 SGRowKillerTest >> testClickOnRowKillerBesideOfanOtherLineKiller [
 
-	| graphicBoard |
 	"Y: Yellow , B: Blue , G: Green , R: Red , Lk : LineKiller
 	represents this grid:
 	 | R | R | Y  |
@@ -121,18 +102,9 @@ SGRowKillerTest >> testClickOnRowKillerBesideOfanOtherLineKiller [
 	 | Y | B | R |
 	 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox red;
-			 at: 2 @ 1 put: SGBox red;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox blue;
-			 at: 2 @ 2 put: SGBox lineKiller;
-			 at: 3 @ 2 put: SGBox lineKiller;
-			 at: 1 @ 3 put: SGBox yellow;
-			 at: 2 @ 3 put: SGBox blue;
-			 at: 3 @ 3 put: SGBox red;
-			 yourself).
-
+	board fromString: '| R | R | Y  |
+                      | B | Lk | Lk |
+                      | Y | B | R |'.
 
 	board hitBoxOnx: 2 y: 2.
 
@@ -160,8 +132,6 @@ SGRowKillerTest >> testClickOnRowKillerBesideOfanOtherLineKiller [
 
 { #category : 'tests' }
 SGRowKillerTest >> testClickOnRowKillerBetweenNull [
-
-	| graphicBoard |
 	"Y: Yellow , B: Blue , G: Green , R: Red , Lk : LineKiller
 	represents this grid:
 	 | R | R | Y  |
@@ -169,18 +139,11 @@ SGRowKillerTest >> testClickOnRowKillerBetweenNull [
 	 | Y | B | R |
 	 
 	"
-	board configureGrid: ((CTNewArray2D width: 3 height: 3)
-			 at: 1 @ 1 put: SGBox red;
-			 at: 2 @ 1 put: SGBox red;
-			 at: 3 @ 1 put: SGBox yellow;
-			 at: 1 @ 2 put: SGBox null;
-			 at: 2 @ 2 put: SGBox lineKiller;
-			 at: 3 @ 2 put: SGBox null;
-			 at: 1 @ 3 put: SGBox yellow;
-			 at: 2 @ 3 put: SGBox blue;
-			 at: 3 @ 3 put: SGBox red;
-			 yourself).
-			
+
+	board fromString: '| R | R | Y  |
+                      | B | Lk | Lk |
+                      | Y | B | R |'.
+
 	board hitBoxOnx: 2 y: 2.
 
 
